@@ -249,7 +249,6 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 
 - (void) globalRMSTimerDidFire
 {
-	[self.ringBuffer addObserver:self.meteringController];
 	
 	[self.ringBuffer updateObservers];
 }

@@ -10,6 +10,7 @@
 
 @import Foundation;
 #import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
+#import "AERingBufferModule.h"
 #import "RMSMeteringController.h"
 
 @interface AEAudioController : NSObject
@@ -24,8 +25,7 @@
 
 - (AEHostTicks)nextSyncTimeForPlayer:(AEAudioFilePlayerModule * _Nonnull)player;
 
-@property (nonatomic, weak) RMSMeteringController * _Nullable meteringController;
-
+@property (nonatomic, strong, readonly) AERingBufferModule * _Nonnull ringBuffer;
 @property (nonatomic, strong, readonly) AEVarispeedModule * _Nonnull varispeed;
 @property (nonatomic, strong, readonly) AEAudioFilePlayerModule * _Nonnull drums;
 @property (nonatomic, strong, readonly) AEAudioFilePlayerModule * _Nonnull bass;
