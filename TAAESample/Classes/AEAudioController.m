@@ -11,6 +11,9 @@
 #import "AEAudioController.h"
 @import AVFoundation;
 
+#import "AERingBufferModule.h"
+
+
 static const AESeconds kCountInThreshold = 0.2;
 static const double kMicBandpassCenterFrequency = 2000.0;
 
@@ -141,7 +144,11 @@ static const double kMicBandpassCenterFrequency = 2000.0;
     // Setup recording player placeholder
     AEManagedValue * playerValue = [AEManagedValue new];
     self.playerValue = playerValue;
-    
+	
+	
+	
+	AERingBufferModule *ringBuffer = [[AERingBufferModule alloc] initWithRenderer:renderer];
+	
     // Setup top-level renderer. This is all performed on the audio thread, so the usual
     // rules apply: No holding locks, no memory allocation, no Objective-C/Swift code.
     renderer.block = ^(const AERenderContext * _Nonnull context) {
@@ -180,7 +187,9 @@ static const double kMicBandpassCenterFrequency = 2000.0;
         
         // Put on output
         AEBufferStackMixToBufferList(context->stack, 1, 0, YES, context->output);
-        
+		
+		AEModuleProcess(ringBuffer, context);
+		
         if ( _inputEnabled ) {
             // Add audio input
             AEModuleProcess(input, context);

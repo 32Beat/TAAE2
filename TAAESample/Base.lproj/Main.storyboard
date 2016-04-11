@@ -254,19 +254,19 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="7C4-c6-zSA"/>
                                         <exclude reference="UsQ-ON-8AP"/>
                                         <exclude reference="VJn-UO-4qT"/>
                                         <exclude reference="bfC-aZ-52q"/>
-                                        <exclude reference="7C4-c6-zSA"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
                                     <mask key="constraints">
+                                        <exclude reference="1ZM-He-jn0"/>
+                                        <exclude reference="7C4-c6-zSA"/>
                                         <exclude reference="39n-2L-tUM"/>
                                         <include reference="UsQ-ON-8AP"/>
                                         <include reference="VJn-UO-4qT"/>
-                                        <exclude reference="1ZM-He-jn0"/>
-                                        <exclude reference="7C4-c6-zSA"/>
                                     </mask>
                                 </variation>
                             </view>
