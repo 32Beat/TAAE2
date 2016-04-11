@@ -24,6 +24,9 @@
 		4CDCACD81CA25AFD008AAEF1 /* libTheAmazingAudioEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CDCACD71CA25AFD008AAEF1 /* libTheAmazingAudioEngine.a */; };
 		7F9DEB991CBAF4CC000796AE /* AERingBufferModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9DEB981CBAF4CC000796AE /* AERingBufferModule.m */; };
 		7F9DEB9C1CBB0201000796AE /* RMSTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9DEB9B1CBB0201000796AE /* RMSTimer.m */; };
+		7FE0205A1CBBDDED00FC1938 /* RMSIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE020591CBBDDED00FC1938 /* RMSIndexView.m */; };
+		7FE0205D1CBBE24A00FC1938 /* RMSLevelsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE0205C1CBBE24A00FC1938 /* RMSLevelsView.m */; };
+		7FE020601CBBE32300FC1938 /* rmslevels_t.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE0205F1CBBE32300FC1938 /* rmslevels_t.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +53,12 @@
 		7F9DEB981CBAF4CC000796AE /* AERingBufferModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AERingBufferModule.m; sourceTree = "<group>"; };
 		7F9DEB9A1CBB0201000796AE /* RMSTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSTimer.h; sourceTree = "<group>"; };
 		7F9DEB9B1CBB0201000796AE /* RMSTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSTimer.m; sourceTree = "<group>"; };
+		7FE020581CBBDDED00FC1938 /* RMSIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSIndexView.h; sourceTree = "<group>"; };
+		7FE020591CBBDDED00FC1938 /* RMSIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSIndexView.m; sourceTree = "<group>"; };
+		7FE0205B1CBBE24A00FC1938 /* RMSLevelsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSLevelsView.h; sourceTree = "<group>"; };
+		7FE0205C1CBBE24A00FC1938 /* RMSLevelsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSLevelsView.m; sourceTree = "<group>"; };
+		7FE0205E1CBBE32300FC1938 /* rmslevels_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rmslevels_t.h; sourceTree = "<group>"; };
+		7FE0205F1CBBE32300FC1938 /* rmslevels_t.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rmslevels_t.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +95,14 @@
 				4C94E2B61CAF7129006EB497 /* TriggerGestureRecognizer.swift */,
 				4C94E2B31CAF7129006EB497 /* AEAudioController.h */,
 				4C94E2B41CAF7129006EB497 /* AEAudioController.m */,
-				7F9DEB9A1CBB0201000796AE /* RMSTimer.h */,
-				7F9DEB9B1CBB0201000796AE /* RMSTimer.m */,
 				7F9DEB971CBAF4CC000796AE /* AERingBufferModule.h */,
 				7F9DEB981CBAF4CC000796AE /* AERingBufferModule.m */,
+				7F9DEB9A1CBB0201000796AE /* RMSTimer.h */,
+				7F9DEB9B1CBB0201000796AE /* RMSTimer.m */,
+				7FE020581CBBDDED00FC1938 /* RMSIndexView.h */,
+				7FE020591CBBDDED00FC1938 /* RMSIndexView.m */,
+				7FE0205B1CBBE24A00FC1938 /* RMSLevelsView.h */,
+				7FE0205C1CBBE24A00FC1938 /* RMSLevelsView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -126,6 +139,8 @@
 		4CDCACBE1CA25AA8008AAEF1 /* TAAESample */ = {
 			isa = PBXGroup;
 			children = (
+				7FE0205E1CBBE32300FC1938 /* rmslevels_t.h */,
+				7FE0205F1CBBE32300FC1938 /* rmslevels_t.m */,
 				4C94E2B21CAF7129006EB497 /* Classes */,
 				4C94E2AB1CAF7129006EB497 /* Audio */,
 				4C94E2C41CAF7134006EB497 /* Support */,
@@ -221,10 +236,13 @@
 			files = (
 				4C94E2C31CAF7129006EB497 /* ViewController.swift in Sources */,
 				7F9DEB991CBAF4CC000796AE /* AERingBufferModule.m in Sources */,
+				7FE020601CBBE32300FC1938 /* rmslevels_t.m in Sources */,
 				4C94E2BF1CAF7129006EB497 /* AEAudioController.m in Sources */,
 				4C94E2C11CAF7129006EB497 /* TriggerGestureRecognizer.swift in Sources */,
 				7F9DEB9C1CBB0201000796AE /* RMSTimer.m in Sources */,
+				7FE0205D1CBBE24A00FC1938 /* RMSLevelsView.m in Sources */,
 				4C94E2C21CAF7129006EB497 /* PlayerButton.swift in Sources */,
+				7FE0205A1CBBDDED00FC1938 /* RMSIndexView.m in Sources */,
 				4C94E2C01CAF7129006EB497 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="tkn-kF-HWc">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="tkn-kF-HWc">
                                 <rect key="frame" x="234" y="232" width="133" height="136"/>
                             </imageView>
                         </subviews>
