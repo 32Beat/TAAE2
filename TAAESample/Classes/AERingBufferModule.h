@@ -16,6 +16,7 @@ typedef struct AERange
 AERange;
 
 
+
 @class AERingBufferModule;
 
 @protocol AERingBufferModuleObserverProtocol <NSObject>
@@ -28,13 +29,19 @@ AERange;
 @end
 
 @interface AERingBufferModule : AEModule
-@property (nonatomic, weak) id<AERingBufferModuleDelegateProtocol> delegate;
 
 - (void) addObserver:(id<AERingBufferModuleObserverProtocol>)observer;
 - (void) removeObserver:(id<AERingBufferModuleObserverProtocol>)observer;
+- (void) updateObservers;
+@property (nonatomic, weak) id<AERingBufferModuleDelegateProtocol> delegate;
 
 - (AERange) availableRange;
-- (float) valueAtIndex0:(uint64_t)index;
-- (float) valueAtIndex1:(uint64_t)index;
+- (float) valueAtIndex:(uint64_t)index channelIndex:(unsigned)channelIndex;
+- (uint64_t) indexMask;
+- (const float *) samplePtrAtIndex:(unsigned)channelIndex;
 
 @end
+
+
+
+

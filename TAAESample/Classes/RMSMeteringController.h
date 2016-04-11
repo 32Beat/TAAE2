@@ -11,6 +11,7 @@
 
 @interface RMSMeteringController : NSObject
 <AERingBufferModuleObserverProtocol>
+
 - (void) updateWithRingBufferModule:(AERingBufferModule *)ringBuffer;
 
 @end

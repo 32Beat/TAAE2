@@ -14,8 +14,8 @@
 	uint64_t mIndex;
 	uint64_t mIndexMask;
 	
-	float *_ptr0;
-	float *_ptr1;
+	unsigned mChannelCount;
+	float *_samplePtr[2];
 	
 	NSMutableArray *mObservers;
 }
@@ -33,8 +33,10 @@
 	if (self != nil)
 	{
 		mIndexMask = (1<<12) - 1;
-		_ptr0 = calloc(mIndexMask+1, sizeof(float));
-		_ptr1 = calloc(mIndexMask+1, sizeof(float));
+		
+		mChannelCount = 2;
+		_samplePtr[0] = calloc(mIndexMask+1, sizeof(float));
+		_samplePtr[1] = calloc(mIndexMask+1, sizeof(float));
 		self.processFunction = AERingBufferModuleProcessFunction;
 	}
 	
@@ -45,20 +47,28 @@
 
 - (void) dealloc
 {
-	if (_ptr0 != nil)
-	{ free(_ptr0); _ptr0 = nil; }
-	
-	if (_ptr1 != nil)
-	{ free(_ptr1); _ptr1 = nil; }
+	for (int n=0; n!=mChannelCount; n++)
+	{
+		if (_samplePtr[n] != nil)
+		{
+			free(_samplePtr[n]);
+			_samplePtr[n] = nil;
+		}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-- (float) valueAtIndex0:(uint64_t)index
-{ return _ptr0[index&mIndexMask]; }
+- (float) valueAtIndex:(uint64_t)index channelIndex:(unsigned)channelIndex
+{ return _samplePtr[channelIndex][index&mIndexMask]; }
 
-- (float) valueAtIndex1:(uint64_t)index;
-{ return _ptr1[index&mIndexMask]; }
+////////////////////////////////////////////////////////////////////////////////
+
+- (uint64_t) indexMask
+{ return mIndexMask; }
+
+- (const float *) samplePtrAtIndex:(unsigned)channelIndex
+{ return channelIndex < mChannelCount ? _samplePtr[channelIndex] : nil; }
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -103,9 +113,9 @@ const AERenderContext * _Nonnull context)
 		{ frameCount = context->frames; }
 		
 		if (bufferList->mNumberBuffers > 0)
-		{ RingBufferCopy(THIS->_ptr0, index, indexMask, bufferList->mBuffers[0].mData, frameCount); }
+		{ RingBufferCopy(THIS->_samplePtr[0], index, indexMask, bufferList->mBuffers[0].mData, frameCount); }
 		if (bufferList->mNumberBuffers > 1)
-		{ RingBufferCopy(THIS->_ptr1, index, indexMask, bufferList->mBuffers[1].mData, frameCount); }
+		{ RingBufferCopy(THIS->_samplePtr[1], index, indexMask, bufferList->mBuffers[1].mData, frameCount); }
 		
 		THIS->mIndex += frameCount;
 	}

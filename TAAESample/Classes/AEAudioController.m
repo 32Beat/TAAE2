@@ -11,6 +11,7 @@
 #import "AEAudioController.h"
 @import AVFoundation;
 
+#import "RMSTimer.h"
 #import "AERingBufferModule.h"
 
 
@@ -18,6 +19,7 @@ static const AESeconds kCountInThreshold = 0.2;
 static const double kMicBandpassCenterFrequency = 2000.0;
 
 @interface AEAudioController ()
+<RMSTimerProtocol>
 
 @property (nonatomic, strong, readwrite) AEAudioUnitInputModule * input;
 @property (nonatomic, strong, readwrite) AEAudioUnitOutput * output;
@@ -32,6 +34,10 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 @property (nonatomic, strong, readwrite) AEAudioFilePlayerModule * hit;
 @property (nonatomic, strong, readwrite) AEBandpassModule * bandpass;
 @property (nonatomic, strong, readwrite) AEBandpassModule * micBandpass;
+
+@property (nonatomic, strong, readwrite) AERingBufferModule * ringBuffer;
+
+
 @property (nonatomic, readwrite) BOOL recording;
 @property (nonatomic, readwrite) BOOL playingRecording;
 @property (nonatomic, strong) AEManagedValue * recorderValue;
@@ -149,6 +155,7 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 	
 	
 	AERingBufferModule *ringBuffer = [[AERingBufferModule alloc] initWithRenderer:renderer];
+	self.ringBuffer = ringBuffer;
 	
     // Setup top-level renderer. This is all performed on the audio thread, so the usual
     // rules apply: No holding locks, no memory allocation, no Objective-C/Swift code.
@@ -239,6 +246,15 @@ static const double kMicBandpassCenterFrequency = 2000.0;
     [self stop];
 }
 
+
+- (void) globalRMSTimerDidFire
+{
+	[self.ringBuffer addObserver:self.meteringController];
+	
+	[self.ringBuffer updateObservers];
+}
+
+
 - (BOOL)start:(NSError *__autoreleasing *)error {
     // Request a 128 frame hardware duration, for minimal latency
     AVAudioSession * session = [AVAudioSession sharedInstance];
@@ -257,7 +273,9 @@ static const double kMicBandpassCenterFrequency = 2000.0;
         object:session queue:NULL usingBlock:^(NSNotification * _Nonnull note) {
         [self updatePlayingThroughSpeaker];
     }];
-    
+	
+	[RMSTimer addRMSTimerObserver:self];
+	
     // Start the output and input (note, starting the input actually a no-op on iOS)
     return [self.output start:error] && (!self.inputEnabled || [self.input start:error]);
 }
@@ -267,10 +285,12 @@ static const double kMicBandpassCenterFrequency = 2000.0;
     [self.output stop];
     [self.input stop]; // (this is a no-op on iOS)
     [[AVAudioSession sharedInstance] setActive:NO error:NULL];
-    
+
     // Stop observing route changes
     [[NSNotificationCenter defaultCenter] removeObserver:self.routeChangeObserverToken];
     self.routeChangeObserverToken = nil;
+	
+	[RMSTimer removeRMSTimerObserver:self];
 }
 
 - (BOOL)beginRecordingAtTime:(AEHostTicks)time error:(NSError**)error {

@@ -49,7 +49,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+		
+		audio!.meteringController = self.meteringController;
+		
         // Setup visuals
         topBackground.backgroundColor = UIColor(patternImage: UIImage(named: "Upper Background")!)
         bottomBackground.backgroundColor = UIColor(patternImage: UIImage(named: "Lower Background")!)

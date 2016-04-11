@@ -225,12 +225,21 @@
                                             <action selector="speedSliderEnd" destination="BYZ-38-t0r" eventType="touchUpInside" id="I2t-yR-npJ"/>
                                         </connections>
                                     </slider>
-                                    <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9K8-VX-ZnH" customClass="RMSIndexView">
-                                        <rect key="frame" x="28" y="246" width="180" height="10"/>
-                                    </view>
-                                    <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Otb-jU-oet" customClass="RMSLevelsView">
-                                        <rect key="frame" x="28" y="264" width="180" height="10"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fw4-vD-wPl">
+                                        <rect key="frame" x="8" y="258" width="180" height="41"/>
+                                        <subviews>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9K8-VX-ZnH" customClass="RMSIndexView">
+                                                <rect key="frame" x="0.0" y="0.0" width="180" height="10"/>
+                                            </view>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Otb-jU-oet" customClass="RMSLevelsView">
+                                                <rect key="frame" x="0.0" y="10" width="180" height="10"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7K2-EF-T5W" customClass="RMSLevelsView">
+                                                <rect key="frame" x="0.0" y="21" width="180" height="10"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -332,6 +341,7 @@
                 <customObject id="i5l-nn-K1M" customClass="RMSMeteringController">
                     <connections>
                         <outlet property="mLevelsViewL" destination="Otb-jU-oet" id="dmB-6G-Yfe"/>
+                        <outlet property="mLevelsViewR" destination="7K2-EF-T5W" id="z8E-X7-XEz"/>
                     </connections>
                 </customObject>
             </objects>
