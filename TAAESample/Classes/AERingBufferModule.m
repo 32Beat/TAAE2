@@ -54,6 +54,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
+- (float) valueAtIndex0:(uint64_t)index
+{ return _ptr0[index&mIndexMask]; }
+
+- (float) valueAtIndex1:(uint64_t)index;
+{ return _ptr1[index&mIndexMask]; }
+
+////////////////////////////////////////////////////////////////////////////////
+
 static void RingBufferCopy
 (
 	float *dstPtr,
@@ -63,6 +71,15 @@ static void RingBufferCopy
 	size_t frameCount
 )
 {
+/*
+	for (size_t n=0; n!=frameCount; n++)
+	{
+		index &= indexMask;
+		dstPtr0[index] = srcPtr0[n];
+		dstPtr1[index] = srcPtr1[n];
+		index += 1;
+	}
+*/
 	for (;frameCount!=0; frameCount--)
 	{
 		dstPtr[index&indexMask] = srcPtr[0];
@@ -92,6 +109,21 @@ const AERenderContext * _Nonnull context)
 		
 		THIS->mIndex += frameCount;
 	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark Read Logic
+////////////////////////////////////////////////////////////////////////////////
+
+- (AERange) availableRange
+{
+	uint64_t index = mIndex;
+	uint64_t count = (mIndexMask + 1) >> 1;
+	
+	if (index <= count)
+	{ return (AERange){ 0, index }; }
+	
+	return (AERange){ index - count, count };
 }
 
 ////////////////////////////////////////////////////////////////////////////////

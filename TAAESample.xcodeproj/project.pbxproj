@@ -27,6 +27,7 @@
 		7FE0205A1CBBDDED00FC1938 /* RMSIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE020591CBBDDED00FC1938 /* RMSIndexView.m */; };
 		7FE0205D1CBBE24A00FC1938 /* RMSLevelsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE0205C1CBBE24A00FC1938 /* RMSLevelsView.m */; };
 		7FE020601CBBE32300FC1938 /* rmslevels_t.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE0205F1CBBE32300FC1938 /* rmslevels_t.m */; };
+		7FE020631CBC20C900FC1938 /* RMSMeteringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE020621CBC20C900FC1938 /* RMSMeteringController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,8 @@
 		7FE0205C1CBBE24A00FC1938 /* RMSLevelsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSLevelsView.m; sourceTree = "<group>"; };
 		7FE0205E1CBBE32300FC1938 /* rmslevels_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rmslevels_t.h; sourceTree = "<group>"; };
 		7FE0205F1CBBE32300FC1938 /* rmslevels_t.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rmslevels_t.m; sourceTree = "<group>"; };
+		7FE020611CBC20C900FC1938 /* RMSMeteringController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSMeteringController.h; sourceTree = "<group>"; };
+		7FE020621CBC20C900FC1938 /* RMSMeteringController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSMeteringController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,8 @@
 				7FE020591CBBDDED00FC1938 /* RMSIndexView.m */,
 				7FE0205B1CBBE24A00FC1938 /* RMSLevelsView.h */,
 				7FE0205C1CBBE24A00FC1938 /* RMSLevelsView.m */,
+				7FE020611CBC20C900FC1938 /* RMSMeteringController.h */,
+				7FE020621CBC20C900FC1938 /* RMSMeteringController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				4C94E2C11CAF7129006EB497 /* TriggerGestureRecognizer.swift in Sources */,
 				7F9DEB9C1CBB0201000796AE /* RMSTimer.m in Sources */,
 				7FE0205D1CBBE24A00FC1938 /* RMSLevelsView.m in Sources */,
+				7FE020631CBC20C900FC1938 /* RMSMeteringController.m in Sources */,
 				4C94E2C21CAF7129006EB497 /* PlayerButton.swift in Sources */,
 				7FE0205A1CBBDDED00FC1938 /* RMSIndexView.m in Sources */,
 				4C94E2C01CAF7129006EB497 /* AppDelegate.swift in Sources */,

@@ -20,6 +20,8 @@ let SyncRecordRotateSpeed      = -3.0
 
 class ViewController: UIViewController {
 
+    @IBOutlet var meteringController: RMSMeteringController!
+
     @IBOutlet var topBackground: UIView!
     @IBOutlet var bottomBackground: UIView!
     @IBOutlet var beatButton: PlayerButton!

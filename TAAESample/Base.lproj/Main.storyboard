@@ -298,6 +298,7 @@
                         <outlet property="bottomBackground" destination="aC3-JZ-fk8" id="BhD-Ic-xmn"/>
                         <outlet property="exportButton" destination="1bs-fT-J90" id="JvY-ar-l2w"/>
                         <outlet property="hitButton" destination="y6N-LY-tsf" id="3nu-fo-1ub"/>
+                        <outlet property="meteringController" destination="i5l-nn-K1M" id="BaS-2M-s2L"/>
                         <outlet property="micButton" destination="tyg-k0-s00" id="u0b-T2-Pqa"/>
                         <outlet property="pad" destination="bu3-6Q-MsA" id="sBz-gO-gCp"/>
                         <outlet property="pianoButton" destination="COa-XF-8pQ" id="SKZ-nY-Bft"/>
@@ -328,6 +329,11 @@
                         <action selector="loopTapped:" destination="BYZ-38-t0r" id="Idc-Zo-CGR"/>
                     </connections>
                 </tapGestureRecognizer>
+                <customObject id="i5l-nn-K1M" customClass="RMSMeteringController">
+                    <connections>
+                        <outlet property="mLevelsViewL" destination="Otb-jU-oet" id="dmB-6G-Yfe"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="368.5" y="488.5"/>
         </scene>

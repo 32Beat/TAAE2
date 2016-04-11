@@ -21,6 +21,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// NOTE: this is not recommended!
+#import "AERingBufferModule.h"
+
+
 #import "rmslevels_t.h"
 
 enum RMSViewDirection

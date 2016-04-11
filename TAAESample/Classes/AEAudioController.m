@@ -18,6 +18,7 @@ static const AESeconds kCountInThreshold = 0.2;
 static const double kMicBandpassCenterFrequency = 2000.0;
 
 @interface AEAudioController ()
+
 @property (nonatomic, strong, readwrite) AEAudioUnitInputModule * input;
 @property (nonatomic, strong, readwrite) AEAudioUnitOutput * output;
 @property (nonatomic, strong, readwrite) AEVarispeedModule * varispeed;
