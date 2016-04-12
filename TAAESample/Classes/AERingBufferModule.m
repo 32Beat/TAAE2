@@ -11,11 +11,9 @@
 
 @interface AERingBufferModule ()
 {
-	uint64_t mIndex;
-	uint64_t mIndexMask;
-	
-	unsigned mChannelCount;
-	float *_samplePtr[2];
+	size_t mSampleCount;
+	size_t mChannelCount;
+	AERingBuffer mRingBuffer[2];
 	
 	NSMutableArray *mObservers;
 }
@@ -32,11 +30,11 @@
 	self = [super initWithRenderer:renderer];
 	if (self != nil)
 	{
-		mIndexMask = (1<<12) - 1;
+		mSampleCount = (1<<16);
 		
 		mChannelCount = 2;
-		_samplePtr[0] = calloc(mIndexMask+1, sizeof(float));
-		_samplePtr[1] = calloc(mIndexMask+1, sizeof(float));
+		mRingBuffer[0] = AERingBufferBegin(mSampleCount);
+		mRingBuffer[1] = AERingBufferBegin(mSampleCount);
 		self.processFunction = AERingBufferModuleProcessFunction;
 	}
 	
@@ -49,52 +47,7 @@
 {
 	for (int n=0; n!=mChannelCount; n++)
 	{
-		if (_samplePtr[n] != nil)
-		{
-			free(_samplePtr[n]);
-			_samplePtr[n] = nil;
-		}
-	}
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-- (float) valueAtIndex:(uint64_t)index channelIndex:(unsigned)channelIndex
-{ return _samplePtr[channelIndex][index&mIndexMask]; }
-
-////////////////////////////////////////////////////////////////////////////////
-
-- (uint64_t) indexMask
-{ return mIndexMask; }
-
-- (const float *) samplePtrAtIndex:(unsigned)channelIndex
-{ return channelIndex < mChannelCount ? _samplePtr[channelIndex] : nil; }
-
-////////////////////////////////////////////////////////////////////////////////
-
-static void RingBufferCopy
-(
-	float *dstPtr,
-	uint64_t index,
-	uint64_t indexMask,
-	const float *srcPtr,
-	size_t frameCount
-)
-{
-/*
-	for (size_t n=0; n!=frameCount; n++)
-	{
-		index &= indexMask;
-		dstPtr0[index] = srcPtr0[n];
-		dstPtr1[index] = srcPtr1[n];
-		index += 1;
-	}
-*/
-	for (;frameCount!=0; frameCount--)
-	{
-		dstPtr[index&indexMask] = srcPtr[0];
-		srcPtr += 1;
-		index += 1;
+		AERingBufferEnd(mRingBuffer[n]);
 	}
 }
 
@@ -103,21 +56,38 @@ static void RingBufferCopy
 static void AERingBufferModuleProcessFunction(__unsafe_unretained AERingBufferModule * THIS,
 const AERenderContext * _Nonnull context)
 {
+	// source = top of stack
 	const AudioBufferList *bufferList = AEBufferStackGet(context->stack, 0);
 	if (bufferList != nil)
 	{
-		uint64_t index = THIS->mIndex;
-		uint64_t indexMask = THIS->mIndexMask;
+		// frameCount is MIN(stackFrames, contextFrames)
+		// although contextFrameCount > stackFrameCount is probably an error
 		size_t frameCount = AEBufferStackGetFrameCount(context->stack);
 		if (frameCount > context->frames)
 		{ frameCount = context->frames; }
-		
-		if (bufferList->mNumberBuffers > 0)
-		{ RingBufferCopy(THIS->_samplePtr[0], index, indexMask, bufferList->mBuffers[0].mData, frameCount); }
-		if (bufferList->mNumberBuffers > 1)
-		{ RingBufferCopy(THIS->_samplePtr[1], index, indexMask, bufferList->mBuffers[1].mData, frameCount); }
-		
-		THIS->mIndex += frameCount;
+
+		// if at least 2 channels,
+		// then copy first two channels into our ringbuffers
+		if (bufferList->mNumberBuffers >= 2)
+		{
+			float *srcPtr0 = bufferList->mBuffers[0].mData;
+			float *srcPtr1 = bufferList->mBuffers[1].mData;
+			for (UInt32 n=0; n!=frameCount; n++)
+			{
+				AERingBufferWriteSample(&THIS->mRingBuffer[0], srcPtr0[n]);
+				AERingBufferWriteSample(&THIS->mRingBuffer[1], srcPtr1[n]);
+			}
+		}
+		else
+		if (bufferList->mNumberBuffers == 1)
+		{
+			float *srcPtr0 = bufferList->mBuffers[0].mData;
+			for (UInt32 n=0; n!=frameCount; n++)
+			{
+				AERingBufferWriteSample(&THIS->mRingBuffer[0], srcPtr0[n]);
+				AERingBufferWriteSample(&THIS->mRingBuffer[1], srcPtr0[n]);
+			}
+		}
 	}
 }
 
@@ -127,14 +97,27 @@ const AERenderContext * _Nonnull context)
 
 - (AERange) availableRange
 {
-	uint64_t index = mIndex;
-	uint64_t count = (mIndexMask + 1) >> 1;
+	// fetch writeIndices, determine minimum index
+	uint64_t index0 = mRingBuffer[0].index;
+	uint64_t index1 = mRingBuffer[1].index;
+	uint64_t index = index0 < index1 ? index0 : index1;
+	
+	// available count is at most half the buffer
+	uint64_t count = (mRingBuffer[0].indexMask+1) >> 1;
 	
 	if (index <= count)
 	{ return (AERange){ 0, index }; }
 	
 	return (AERange){ index - count, count };
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (uint64_t) indexMask
+{ return mSampleCount-1; }
+
+- (const float *) samplePtrAtIndex:(unsigned)channelIndex
+{ return channelIndex < mChannelCount ? mRingBuffer[channelIndex].samplePtr : nil; }
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark Observer Logic
