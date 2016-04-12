@@ -246,12 +246,15 @@ void * AEManagedValueGetValue(__unsafe_unretained AEManagedValue * THIS) {
 }
 
 - (void)releaseOldValue:(void *)value {
-    if ( _isObjectValue ) {
-        CFRelease(value);
-    } else if ( _releaseBlock ) {
+    if ( _releaseBlock ) {
         _releaseBlock(value);
+    } else if ( _isObjectValue ) {
+        CFRelease(value);
     } else {
         free(value);
+    }
+    if ( _releaseNotificationBlock ) {
+        _releaseNotificationBlock();
     }
 }
 

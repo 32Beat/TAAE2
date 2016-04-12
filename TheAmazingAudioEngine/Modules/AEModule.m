@@ -27,6 +27,10 @@
 #import "AEModule.h"
 #import "AERenderer.h"
 
+@interface AEModule ()
+@property (nonatomic, weak, readwrite) AERenderer * renderer;
+@end
+
 @implementation AEModule
 
 - (instancetype)initWithRenderer:(AERenderer *)renderer {
@@ -47,6 +51,8 @@
                                                       object:_renderer];
     }
     
+    BOOL hadRenderer = _renderer != nil;
+    
     _renderer = renderer;
     
     if ( _renderer ) {
@@ -55,6 +61,10 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rendererDidChangeChannelCount)
                                                      name:AERendererDidChangeChannelCountNotification object:_renderer];
         
+        if ( hadRenderer ) {
+            [self rendererDidChangeSampleRate];
+            [self rendererDidChangeChannelCount];
+        }
     }
 }
 
