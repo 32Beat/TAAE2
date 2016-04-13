@@ -22,6 +22,7 @@
 		4CDCACC71CA25AA8008AAEF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CDCACC61CA25AA8008AAEF1 /* Assets.xcassets */; };
 		4CDCACCA1CA25AA8008AAEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CDCACC81CA25AA8008AAEF1 /* LaunchScreen.storyboard */; };
 		4CDCACD81CA25AFD008AAEF1 /* libTheAmazingAudioEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CDCACD71CA25AFD008AAEF1 /* libTheAmazingAudioEngine.a */; };
+		7F42B7B51CBDE29F00CB9A39 /* AEObserverStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F42B7B41CBDE29F00CB9A39 /* AEObserverStack.m */; };
 		7F7219B21CBD55FD00458CF9 /* AERingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7219B11CBD55FD00458CF9 /* AERingBuffer.m */; };
 		7F9DEB991CBAF4CC000796AE /* AERingBufferModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9DEB981CBAF4CC000796AE /* AERingBufferModule.m */; };
 		7F9DEB9C1CBB0201000796AE /* RMSTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9DEB9B1CBB0201000796AE /* RMSTimer.m */; };
@@ -51,6 +52,8 @@
 		4CDCACCB1CA25AA8008AAEF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CDCACD71CA25AFD008AAEF1 /* libTheAmazingAudioEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTheAmazingAudioEngine.a; path = "build/Debug-iphoneos/libTheAmazingAudioEngine.a"; sourceTree = "<group>"; };
 		4CDCACED1CA25BFF008AAEF1 /* TAAESample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TAAESample-Bridging-Header.h"; sourceTree = "<group>"; };
+		7F42B7B31CBDE29F00CB9A39 /* AEObserverStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEObserverStack.h; sourceTree = "<group>"; };
+		7F42B7B41CBDE29F00CB9A39 /* AEObserverStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEObserverStack.m; sourceTree = "<group>"; };
 		7F7219B01CBD55FD00458CF9 /* AERingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AERingBuffer.h; sourceTree = "<group>"; };
 		7F7219B11CBD55FD00458CF9 /* AERingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AERingBuffer.m; sourceTree = "<group>"; };
 		7F9DEB971CBAF4CC000796AE /* AERingBufferModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AERingBufferModule.h; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				7F7219B11CBD55FD00458CF9 /* AERingBuffer.m */,
 				7F9DEB971CBAF4CC000796AE /* AERingBufferModule.h */,
 				7F9DEB981CBAF4CC000796AE /* AERingBufferModule.m */,
+				7F42B7B31CBDE29F00CB9A39 /* AEObserverStack.h */,
+				7F42B7B41CBDE29F00CB9A39 /* AEObserverStack.m */,
 				7F9DEB9A1CBB0201000796AE /* RMSTimer.h */,
 				7F9DEB9B1CBB0201000796AE /* RMSTimer.m */,
 				7FE020581CBBDDED00FC1938 /* RMSIndexView.h */,
@@ -249,6 +254,7 @@
 				7FE020601CBBE32300FC1938 /* rmslevels_t.m in Sources */,
 				4C94E2BF1CAF7129006EB497 /* AEAudioController.m in Sources */,
 				4C94E2C11CAF7129006EB497 /* TriggerGestureRecognizer.swift in Sources */,
+				7F42B7B51CBDE29F00CB9A39 /* AEObserverStack.m in Sources */,
 				7F9DEB9C1CBB0201000796AE /* RMSTimer.m in Sources */,
 				7FE0205D1CBBE24A00FC1938 /* RMSLevelsView.m in Sources */,
 				7FE020631CBC20C900FC1938 /* RMSMeteringController.m in Sources */,

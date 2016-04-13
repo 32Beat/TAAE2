@@ -15,7 +15,7 @@
 	size_t mChannelCount;
 	AERingBuffer mRingBuffer[2];
 	
-	NSMutableArray *mObservers;
+	NSHashTable *mObservers;
 }
 @end
 
@@ -57,7 +57,8 @@ static void AERingBufferModuleProcessFunction(__unsafe_unretained AERingBufferMo
 const AERenderContext * _Nonnull context)
 {
 	// source = top of stack
-	const AudioBufferList *bufferList = AEBufferStackGet(context->stack, 0);
+//	const AudioBufferList *bufferList = AEBufferStackGet(context->stack, 0);
+	const AudioBufferList *bufferList = context->output;
 	if (bufferList != nil)
 	{
 		// frameCount is MIN(stackFrames, contextFrames)
@@ -123,7 +124,7 @@ const AERenderContext * _Nonnull context)
 #pragma mark Observer Logic
 ////////////////////////////////////////////////////////////////////////////////
 
-- (BOOL) validateObserver:(id<AERingBufferModuleObserverProtocol>)observer
+- (BOOL) validateObserver:(id)observer
 {
 	return observer != nil &&
 	[observer respondsToSelector:@selector(updateWithRingBufferModule:)];
@@ -134,10 +135,10 @@ const AERenderContext * _Nonnull context)
 - (void) addObserver:(id<AERingBufferModuleObserverProtocol>)observer
 {
 	if (mObservers == nil)
-	{ mObservers = [NSMutableArray new]; }
+	{ mObservers = [NSHashTable weakObjectsHashTable]; }
 	
 	if ([self validateObserver:observer] &&
-	[mObservers indexOfObjectIdenticalTo:observer] == NSNotFound)
+	[mObservers containsObject:observer] == NO)
 	{ [mObservers addObject:observer]; }
 }
 
@@ -145,7 +146,7 @@ const AERenderContext * _Nonnull context)
 
 - (void) removeObserver:(id<AERingBufferModuleObserverProtocol>)observer
 {
-	[mObservers removeObjectIdenticalTo:observer];
+	[mObservers removeObject:observer];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +162,7 @@ const AERenderContext * _Nonnull context)
 		{ [self.delegate ringBufferModule:self didUpdateObserver:observer]; }
 	}
 /*/
-	[mObservers enumerateObjectsWithOptions:NSEnumerationConcurrent
+	[[mObservers allObjects] enumerateObjectsWithOptions:NSEnumerationConcurrent
 	usingBlock:^(id observer, NSUInteger index, BOOL *stop)
 	{
 		[observer updateWithRingBufferModule:self];

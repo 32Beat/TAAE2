@@ -192,11 +192,10 @@ static const double kMicBandpassCenterFrequency = 2000.0;
             // If we're playing a recording, duck other output
             AEDSPApplyGain(AEBufferStackGet(context->stack, 0), 0.1, context->frames);
         }
-        
+		
         // Put on output
         AEBufferStackMixToBufferList(context->stack, 1, 0, YES, context->output);
 		
-		AEModuleProcess(ringBuffer, context);
 		
         if ( _inputEnabled ) {
             // Add audio input
@@ -217,7 +216,7 @@ static const double kMicBandpassCenterFrequency = 2000.0;
                 AEBufferStackMixToBufferList(context->stack, 1, 0, YES, context->output);
             }
         }
-        
+		
         // Run through recorder, if it's there
         if ( recorder && !player ) {
             if ( _inputEnabled ) {
@@ -237,6 +236,9 @@ static const double kMicBandpassCenterFrequency = 2000.0;
             // Put on output
             AEBufferStackMixToBufferList(context->stack, 1, 0, YES, context->output);
         }
+
+		AEModuleProcess(ringBuffer, context);
+
     };
     
     return self;
