@@ -12,9 +12,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-AERingBuffer AERingBufferBegin(size_t maxSampleCount)
+AERingBuffer AERingBufferBegin(size_t minSampleCount)
 {
-	uint64_t shift = ceil(log2(maxSampleCount));
+	uint64_t shift = ceil(log2(minSampleCount));
 	uint64_t indexMask = (1<<shift)-1;
 	float *samplePtr = calloc(indexMask+1, sizeof(float));
 	
@@ -23,10 +23,13 @@ AERingBuffer AERingBufferBegin(size_t maxSampleCount)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void AERingBufferEnd(AERingBuffer ringBuffer)
+void AERingBufferEnd(AERingBuffer *ringBuffer)
 {
-	if (ringBuffer.samplePtr != NULL)
-	{ free(ringBuffer.samplePtr); }
+	if (ringBuffer->samplePtr != NULL)
+	{
+		free(ringBuffer->samplePtr);
+		ringBuffer->samplePtr = NULL;
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

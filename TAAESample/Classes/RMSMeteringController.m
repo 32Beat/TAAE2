@@ -31,38 +31,49 @@
 
 - (void) updateWithRingBufferModule:(AERingBufferModule *)ringBuffer
 {
-	// Reinitialize engines if necessary
-	Float64 sampleRate = ringBuffer.renderer.sampleRate;
-	if (mEngineRate != sampleRate)
+	if (ringBuffer.silent == NO)
 	{
-		mEngineRate = sampleRate;
-		mEngineL = RMSEngineInit(sampleRate);
-		mEngineR = RMSEngineInit(sampleRate);
+		// Reinitialize engines if necessary
+		Float64 sampleRate = ringBuffer.renderer.sampleRate;
+		if (mEngineRate != sampleRate)
+		{
+			mEngineRate = sampleRate;
+			mEngineL = RMSEngineInit(sampleRate);
+			mEngineR = RMSEngineInit(sampleRate);
+		}
+		
+		
+		// Compute samplerange since last update
+		AERange range = [ringBuffer availableRange];
+		if (mIndex < range.index)
+		{ mIndex = range.index; }
+		range.count -= mIndex-range.index;
+		
+		
+		// Process samples
+		uint64_t indexMask = [ringBuffer indexMask];
+		const float *srcPtrL = [ringBuffer samplePtrAtIndex:0];
+		const float *srcPtrR = [ringBuffer samplePtrAtIndex:1];
+		for (uint64_t n=range.count; n!=0; n--)
+		{
+			RMSEngineAddSample(&mEngineL, srcPtrL[mIndex&indexMask]);
+			RMSEngineAddSample(&mEngineR, srcPtrR[mIndex&indexMask]);
+			mIndex += 1;
+		}
 	}
-	
-	
-	// Compute samplerange since last update
-	AERange range = [ringBuffer availableRange];
-	if (mIndex < range.index)
-	{ mIndex = range.index; }
-	range.count -= mIndex-range.index;
-	
-	
-	// Process samples
-	uint64_t indexMask = [ringBuffer indexMask];
-	const float *srcPtrL = [ringBuffer samplePtrAtIndex:0];
-	const float *srcPtrR = [ringBuffer samplePtrAtIndex:1];
-	for (uint64_t n=range.count; n!=0; n--)
+	else
 	{
-		RMSEngineAddSample(&mEngineL, srcPtrL[mIndex&indexMask]);
-		RMSEngineAddSample(&mEngineR, srcPtrR[mIndex&indexMask]);
-		mIndex += 1;
+		for (uint64_t n=2048; n!=0; n--)
+		{
+			RMSEngineAddSample(&mEngineL, 0);
+			RMSEngineAddSample(&mEngineR, 0);
+		}
 	}
-	
-	
+		
 	// Transfer result to view on main
 	rmsresult_t L = RMSEngineFetchResult(&mEngineL);
 	rmsresult_t R = RMSEngineFetchResult(&mEngineR);
+	
 	dispatch_async(dispatch_get_main_queue(),
 	^{
 		mLevelsViewL.levels = L;

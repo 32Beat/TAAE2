@@ -35,6 +35,9 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 @property (nonatomic, strong, readwrite) AEBandpassModule * bandpass;
 @property (nonatomic, strong, readwrite) AEBandpassModule * micBandpass;
 
+@property (nonatomic, strong, readwrite) AERingBufferModule * drumRingBuffer;
+@property (nonatomic, strong, readwrite) AERingBufferModule * bassRingBuffer;
+@property (nonatomic, strong, readwrite) AERingBufferModule * pianoRingBuffer;
 @property (nonatomic, strong, readwrite) AERingBufferModule * ringBuffer;
 
 
@@ -125,7 +128,14 @@ static const double kMicBandpassCenterFrequency = 2000.0;
     AEBandpassModule * micBandpass = [[AEBandpassModule alloc] initWithRenderer:renderer];
     micBandpass.centerFrequency = kMicBandpassCenterFrequency;
     self.micBandpass = micBandpass;
-    
+	
+	AERingBufferModule *drumRingBuffer = [[AERingBufferModule alloc] initWithRenderer:subrenderer];
+	self.drumRingBuffer = drumRingBuffer;
+	AERingBufferModule *bassRingBuffer = [[AERingBufferModule alloc] initWithRenderer:subrenderer];
+	self.bassRingBuffer = bassRingBuffer;
+	AERingBufferModule *pianoRingBuffer = [[AERingBufferModule alloc] initWithRenderer:subrenderer];
+	self.pianoRingBuffer = pianoRingBuffer;
+	
     // Setup varispeed renderer. This is all performed on the audio thread, so the usual
     // rules apply: No holding locks, no memory allocation, no Objective-C/Swift code.
     AEVarispeedModule * varispeed = [[AEVarispeedModule alloc] initWithRenderer:renderer subrenderer:subrenderer];
@@ -135,7 +145,16 @@ static const double kMicBandpassCenterFrequency = 2000.0;
             if ( AEAudioFilePlayerModuleGetPlaying(player) ) {
                 // Process
                 AEModuleProcess(player, context);
-                
+				
+				if (player == drums)
+                AEModuleProcess(drumRingBuffer, context);
+				else
+				if (player == bass)
+                AEModuleProcess(bassRingBuffer, context);
+				else
+				if (player == piano)
+                AEModuleProcess(pianoRingBuffer, context);
+				
                 // Put on output
                 AEBufferStackMixToBufferList(context->stack, 0, 0, YES, context->output);
                 AEBufferStackPop(context->stack, 1);
@@ -156,6 +175,9 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 	
 	AERingBufferModule *ringBuffer = [[AERingBufferModule alloc] initWithRenderer:renderer];
 	self.ringBuffer = ringBuffer;
+
+	// meter outputbuffer as opposed to top-of-stack
+	ringBuffer.srcIndex = -1;
 	
     // Setup top-level renderer. This is all performed on the audio thread, so the usual
     // rules apply: No holding locks, no memory allocation, no Objective-C/Swift code.
@@ -251,8 +273,16 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 
 - (void) globalRMSTimerDidFire
 {
-	
-	[self.ringBuffer updateObservers];
+	self.drumRingBuffer.silent = !self.drums.playing;
+	[self.drumRingBuffer updateObservers];
+
+	self.bassRingBuffer.silent = !self.bass.playing;
+	[self.bassRingBuffer updateObservers];
+
+	self.pianoRingBuffer.silent = !self.piano.playing;
+	[self.pianoRingBuffer updateObservers];
+
+	//[self.ringBuffer updateObservers];
 }
 
 

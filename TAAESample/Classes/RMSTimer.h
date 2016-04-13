@@ -18,8 +18,6 @@
 	it can for example generate updates for a view at the mentioned rate.
 	
 	RMSTimer is not threadsafe and meant to be used on the main thread only.
-	Note that observers are retained, do NOT try to remove "self" from the timer
-	in the self->dealloc method.
 */
 ////////////////////////////////////////////////////////////////////////////////
 

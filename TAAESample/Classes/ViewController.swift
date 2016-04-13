@@ -20,6 +20,10 @@ let SyncRecordRotateSpeed      = -3.0
 
 class ViewController: UIViewController {
 
+	@IBOutlet var audio: AEAudioController?
+    @IBOutlet var drumMeteringController: RMSMeteringController!
+    @IBOutlet var bassMeteringController: RMSMeteringController!
+    @IBOutlet var pianoMeteringController: RMSMeteringController!
     @IBOutlet var meteringController: RMSMeteringController!
 
     @IBOutlet var topBackground: UIView!
@@ -39,9 +43,7 @@ class ViewController: UIViewController {
     @IBOutlet var playButton: UIButton!
     @IBOutlet var exportButton: UIButton!
     @IBOutlet var micButton: UIButton!
-    
-    var audio: AEAudioController?
-    
+        
     private var padWetDryTimer: NSTimer?
     private var padWetDryTarget = 0.0
     private var padWetDryValue = 0.0
@@ -50,7 +52,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		if (self.audio == nil)
+        { self.audio = AEAudioController(); }
+
+		audio!.drumRingBuffer.addObserver(self.drumMeteringController);
+		audio!.bassRingBuffer.addObserver(self.bassMeteringController);
+		audio!.pianoRingBuffer.addObserver(self.pianoMeteringController);
 		audio!.ringBuffer.addObserver(self.meteringController);
+		
+        do
+		{ try self.audio!.start(); }
+		catch
+		{ print("Audio unavailable"); }
+
 		
         // Setup visuals
         topBackground.backgroundColor = UIColor(patternImage: UIImage(named: "Upper Background")!)

@@ -13,7 +13,7 @@
 @interface RMSTimer ()
 {
 	NSTimer *mTimer;
-	NSMutableArray *mObservers;
+	NSHashTable *mObservers;
 }
 @end
 
@@ -45,10 +45,16 @@ static RMSTimer *g_timer = nil;
 
 - (void) addRMSTimerObserver:(id<RMSTimerProtocol>)observer
 {
+	if ([mObservers containsObject:observer])
+	{
+		NSLog(@"%@", @"RMSTimer: attempt to add observer more than once!");
+		return;
+	}
+	
 	if ([observer respondsToSelector:@selector(globalRMSTimerDidFire)])
 	{
 		if (mObservers == nil)
-		{ mObservers = [NSMutableArray new]; }
+		{ mObservers = [NSHashTable weakObjectsHashTable]; }
 
 		[mObservers addObject:observer];
 		if (mObservers.count != 0)
@@ -60,7 +66,7 @@ static RMSTimer *g_timer = nil;
 
 - (void) removeRMSTimerObserver:(id<RMSTimerProtocol>)observer
 {
-	if ([mObservers indexOfObjectIdenticalTo:observer] != NSNotFound)
+	if ([mObservers containsObject:observer])
 	{
 		[mObservers removeObject:observer];
 		if (mObservers.count == 0)
@@ -110,7 +116,8 @@ static RMSTimer *g_timer = nil;
 - (void) timerDidFire:(NSTimer *)timer
 {
 	if (mObservers.count != 0)
-		[mObservers makeObjectsPerformSelector:
+		[[mObservers allObjects]
+		makeObjectsPerformSelector:
 		@selector(globalRMSTimerDidFire)];
 	else
 		[self stopTimer];

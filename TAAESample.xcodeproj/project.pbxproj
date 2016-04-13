@@ -98,8 +98,8 @@
 		4C94E2B21CAF7129006EB497 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4C94E2B81CAF7129006EB497 /* ViewController.swift */,
 				4C94E2B51CAF7129006EB497 /* AppDelegate.swift */,
+				4C94E2B81CAF7129006EB497 /* ViewController.swift */,
 				4C94E2B71CAF7129006EB497 /* PlayerButton.swift */,
 				4C94E2B61CAF7129006EB497 /* TriggerGestureRecognizer.swift */,
 				4C94E2B31CAF7129006EB497 /* AEAudioController.h */,

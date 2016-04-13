@@ -47,7 +47,7 @@
 {
 	for (int n=0; n!=mChannelCount; n++)
 	{
-		AERingBufferEnd(mRingBuffer[n]);
+		AERingBufferEnd(&mRingBuffer[n]);
 	}
 }
 
@@ -57,8 +57,9 @@ static void AERingBufferModuleProcessFunction(__unsafe_unretained AERingBufferMo
 const AERenderContext * _Nonnull context)
 {
 	// source = top of stack
-//	const AudioBufferList *bufferList = AEBufferStackGet(context->stack, 0);
-	const AudioBufferList *bufferList = context->output;
+	const AudioBufferList *bufferList = THIS->_srcIndex >= 0 ?
+	AEBufferStackGet(context->stack, THIS->_srcIndex) : context->output;
+	
 	if (bufferList != nil)
 	{
 		// frameCount is MIN(stackFrames, contextFrames)

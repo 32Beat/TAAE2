@@ -241,6 +241,38 @@
                                             </view>
                                         </subviews>
                                     </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3P5-sv-Spy">
+                                        <rect key="frame" x="243" y="258" width="180" height="41"/>
+                                        <subviews>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K0l-Es-qFi" customClass="RMSIndexView">
+                                                <rect key="frame" x="0.0" y="0.0" width="180" height="10"/>
+                                            </view>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SUa-Kf-WIU" customClass="RMSLevelsView">
+                                                <rect key="frame" x="0.0" y="10" width="180" height="10"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jWi-Rz-dqM" customClass="RMSLevelsView">
+                                                <rect key="frame" x="0.0" y="21" width="180" height="10"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7e2-p5-Rgw">
+                                        <rect key="frame" x="459" y="258" width="180" height="41"/>
+                                        <subviews>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUp-gZ-Wwi" customClass="RMSIndexView">
+                                                <rect key="frame" x="0.0" y="0.0" width="180" height="10"/>
+                                            </view>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4nP-aG-Lxe" customClass="RMSLevelsView">
+                                                <rect key="frame" x="0.0" y="10" width="180" height="10"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wix-Lv-faX" customClass="RMSLevelsView">
+                                                <rect key="frame" x="0.0" y="21" width="180" height="10"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -303,14 +335,17 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="bassButton" destination="g0b-fh-cVb" id="e24-a1-qlQ"/>
+                        <outlet property="bassMeteringController" destination="wWk-Fa-oWg" id="0vx-gf-xl5"/>
                         <outlet property="beatButton" destination="K7C-ma-vPl" id="cEq-z6-hpb"/>
                         <outlet property="bottomBackground" destination="aC3-JZ-fk8" id="BhD-Ic-xmn"/>
+                        <outlet property="drumMeteringController" destination="oA8-jW-OFg" id="JPY-WH-AZG"/>
                         <outlet property="exportButton" destination="1bs-fT-J90" id="JvY-ar-l2w"/>
                         <outlet property="hitButton" destination="y6N-LY-tsf" id="3nu-fo-1ub"/>
                         <outlet property="meteringController" destination="i5l-nn-K1M" id="BaS-2M-s2L"/>
                         <outlet property="micButton" destination="tyg-k0-s00" id="u0b-T2-Pqa"/>
                         <outlet property="pad" destination="bu3-6Q-MsA" id="sBz-gO-gCp"/>
                         <outlet property="pianoButton" destination="COa-XF-8pQ" id="SKZ-nY-Bft"/>
+                        <outlet property="pianoMeteringController" destination="3ue-Fk-dt0" id="Px3-o1-DMR"/>
                         <outlet property="playButton" destination="dKe-dT-0b3" id="Agx-o5-CKu"/>
                         <outlet property="recordButton" destination="CwF-eV-qf0" id="Toa-le-cgd"/>
                         <outlet property="sample1Button" destination="cgM-fK-QOd" id="Eet-sT-iEm"/>
@@ -340,8 +375,26 @@
                 </tapGestureRecognizer>
                 <customObject id="i5l-nn-K1M" customClass="RMSMeteringController">
                     <connections>
-                        <outlet property="mLevelsViewL" destination="Otb-jU-oet" id="dmB-6G-Yfe"/>
-                        <outlet property="mLevelsViewR" destination="7K2-EF-T5W" id="z8E-X7-XEz"/>
+                        <outlet property="mLevelsViewL" destination="SUa-Kf-WIU" id="W7k-fp-pJo"/>
+                        <outlet property="mLevelsViewR" destination="jWi-Rz-dqM" id="7rH-lJ-bq5"/>
+                    </connections>
+                </customObject>
+                <customObject id="oA8-jW-OFg" userLabel="Drum Metering Controller" customClass="RMSMeteringController">
+                    <connections>
+                        <outlet property="mLevelsViewL" destination="Otb-jU-oet" id="vaD-7b-t4M"/>
+                        <outlet property="mLevelsViewR" destination="7K2-EF-T5W" id="DMG-1p-RKU"/>
+                    </connections>
+                </customObject>
+                <customObject id="wWk-Fa-oWg" userLabel="Bass Metering Controller" customClass="RMSMeteringController">
+                    <connections>
+                        <outlet property="mLevelsViewL" destination="SUa-Kf-WIU" id="vOz-ai-2P1"/>
+                        <outlet property="mLevelsViewR" destination="jWi-Rz-dqM" id="Qeb-bY-McV"/>
+                    </connections>
+                </customObject>
+                <customObject id="3ue-Fk-dt0" userLabel="Piano Metering Controller" customClass="RMSMeteringController">
+                    <connections>
+                        <outlet property="mLevelsViewL" destination="4nP-aG-Lxe" id="6ZR-V9-oox"/>
+                        <outlet property="mLevelsViewR" destination="Wix-Lv-faX" id="JuU-DM-XgV"/>
                     </connections>
                 </customObject>
             </objects>

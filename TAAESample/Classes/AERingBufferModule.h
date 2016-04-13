@@ -66,11 +66,15 @@ AERange;
 
 @interface AERingBufferModule : AEModule
 
+@property (nonatomic, assign) BOOL silent;
+@property (nonatomic, assign) int srcIndex;
+
 @property (nonatomic, weak) id<AERingBufferModuleDelegateProtocol> delegate;
 
 - (void) addObserver:(id<AERingBufferModuleObserverProtocol>)observer;
 - (void) removeObserver:(id<AERingBufferModuleObserverProtocol>)observer;
 - (void) updateObservers;
+
 
 - (AERange) availableRange;
 - (uint64_t) indexMask;

@@ -14,19 +14,9 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var audio: AEAudioController?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.audio = AEAudioController();
-        do {
-            try self.audio!.start();
-            if let viewController = self.window?.rootViewController as? ViewController {
-                viewController.audio = self.audio
-            }
-        } catch {
-            print("Audio unavailable");
-        }
-        
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
+	{
         return true
     }
 

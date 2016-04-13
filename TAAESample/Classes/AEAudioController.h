@@ -25,7 +25,11 @@
 
 - (AEHostTicks)nextSyncTimeForPlayer:(AEAudioFilePlayerModule * _Nonnull)player;
 
+@property (nonatomic, strong, readonly) AERingBufferModule * _Nonnull drumRingBuffer;
+@property (nonatomic, strong, readonly) AERingBufferModule * _Nonnull bassRingBuffer;
+@property (nonatomic, strong, readonly) AERingBufferModule * _Nonnull pianoRingBuffer;
 @property (nonatomic, strong, readonly) AERingBufferModule * _Nonnull ringBuffer;
+
 @property (nonatomic, strong, readonly) AEVarispeedModule * _Nonnull varispeed;
 @property (nonatomic, strong, readonly) AEAudioFilePlayerModule * _Nonnull drums;
 @property (nonatomic, strong, readonly) AEAudioFilePlayerModule * _Nonnull bass;
