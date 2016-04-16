@@ -83,6 +83,7 @@ void AERendererRun(__unsafe_unretained AERenderer * THIS, AudioBufferList * buff
         block(&THIS->mContext);
     }
 	
+	THIS->mContext.sliceIndex += 1;
 	THIS->mContext.frameIndex += frameCount;
 }
 

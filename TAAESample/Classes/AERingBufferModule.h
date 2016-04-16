@@ -71,6 +71,7 @@ static inline uint64_t AERangeMax(AERange R)
 
 @interface AERingBufferModule : AEModule
 
+@property (nonatomic, assign) BOOL reset;
 @property (nonatomic, assign) BOOL silent;
 @property (nonatomic, assign) int srcIndex;
 

@@ -271,6 +271,42 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 }
 
 
+
+/* 
+	playstate will be switched after this call
+	New silent-state is equal to current playstate
+
+	technically we need to update entire state of players here,
+	but I'm too lazy to implement that. 
+	
+	Note that globalRMSTimerDidFire and this call are handled on the same thread 
+	and can therefore not occur at the same time. This allows us to add a reset 
+	var to indicate that the ringbuffer needs clearing before displaying results.
+*/
+- (void) switchPlayStateForPlayer:(id)player
+{
+	if (player == self.drums)
+	{
+		self.drumRingBuffer.silent = self.drums.playing;
+		if (self.drumRingBuffer.silent == NO)
+		{ self.drumRingBuffer.reset = YES; }
+	}
+	else
+	if (player == self.bass)
+	{
+		self.bassRingBuffer.silent = self.bass.playing;
+		if (self.bassRingBuffer.silent == NO)
+		{ self.bassRingBuffer.reset = YES; }
+	}
+	else
+	if (player == self.piano)
+	{
+		self.pianoRingBuffer.silent = self.piano.playing;
+		if (self.pianoRingBuffer.silent == NO)
+		{ self.pianoRingBuffer.reset = YES; }
+	}
+}
+
 - (void) globalRMSTimerDidFire
 {
 	self.drumRingBuffer.silent = !self.drums.playing;

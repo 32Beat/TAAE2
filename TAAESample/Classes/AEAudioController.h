@@ -17,6 +17,8 @@
 - (BOOL)start:(NSError * _Nullable * _Nullable)error;
 - (void)stop;
 
+- (void) switchPlayStateForPlayer:(id _Nonnull)player;
+
 - (BOOL)beginRecordingAtTime:(AEHostTicks)time error:(NSError * _Nullable * _Nullable)error;
 - (void)stopRecordingAtTime:(AEHostTicks)time completionBlock:(void(^ _Nullable)())block;
 

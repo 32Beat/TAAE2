@@ -31,7 +31,7 @@
 
 - (void) updateWithRingBufferModule:(AERingBufferModule *)ringBuffer
 {
-	if (ringBuffer.silent == NO)
+	if ((ringBuffer.silent == NO)&&(ringBuffer.reset == NO))
 	{
 		// Reinitialize engines if necessary
 		Float64 sampleRate = ringBuffer.renderer.sampleRate;
@@ -41,7 +41,6 @@
 			mEngineL = RMSEngineInit(sampleRate);
 			mEngineR = RMSEngineInit(sampleRate);
 		}
-		
 		
 		// Compute samplerange since last update
 		AERange range = [ringBuffer availableRange];
@@ -66,7 +65,8 @@
 	}
 	else
 	{
-		for (uint64_t n=2048; n!=0; n--)
+		// produce silence with reasonable integration time
+		for (uint64_t n=ringBuffer.renderer.sampleRate/20.0; n!=0; n--)
 		{
 			RMSEngineAddSample(&mEngineL, 0);
 			RMSEngineAddSample(&mEngineR, 0);

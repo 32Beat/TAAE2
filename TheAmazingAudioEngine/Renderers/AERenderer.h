@@ -45,6 +45,7 @@ typedef struct
     //! The current sample rate, in Hertz
     double sampleRate;
 
+	UInt64 sliceIndex;
 	UInt64 frameIndex;
 	UInt32 frameCount;
 	

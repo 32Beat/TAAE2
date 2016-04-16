@@ -11,7 +11,7 @@
 
 @interface AERingBufferModule ()
 {
-	uint64_t mIndex;
+	BOOL mReset;
 	
 	size_t mSampleCount;
 	size_t mChannelCount;
@@ -58,11 +58,12 @@
 static void AERingBufferModuleProcessFunction(__unsafe_unretained AERingBufferModule * THIS,
 const AERenderContext * _Nonnull context)
 {
-	if (THIS->mIndex != context->frameIndex)
+	if (THIS->_reset == YES)
 	{
-		THIS->mIndex = context->frameIndex;
 		AERingBufferReset(&THIS->mRingBuffer[0]);
 		AERingBufferReset(&THIS->mRingBuffer[1]);
+		NSLog(@"AERingBufferModule->reset %zu", (size_t)THIS);
+		THIS->_reset = NO;
 	}
 	
 	// source = top of stack
@@ -99,8 +100,6 @@ const AERenderContext * _Nonnull context)
 				AERingBufferWriteSample(&THIS->mRingBuffer[1], srcPtr0[n]);
 			}
 		}
-		
-		THIS->mIndex += frameCount;
 	}
 }
 
@@ -116,7 +115,7 @@ const AERenderContext * _Nonnull context)
 	uint64_t index = index0 < index1 ? index0 : index1;
 	
 	// available count is at most half the buffer
-	uint64_t count = (mRingBuffer[0].indexMask+1) >> 1;
+	uint64_t count = mSampleCount >> 1;
 	
 	if (index <= count)
 	{ return (AERange){ 0, index }; }

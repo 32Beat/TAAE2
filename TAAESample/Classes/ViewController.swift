@@ -119,6 +119,7 @@ class ViewController: UIViewController {
         let sender = recognizer.view! as! PlayerButton
         if let player = associatedPlayerForView(sender) {
             if let audio = audio {
+				audio.switchPlayStateForPlayer(player);
                 if player.playing {
                     // Stop
                     player.stop()
