@@ -9,7 +9,7 @@
 /*
 	AERingBuffer
 	------------
-	A lightweight unguarded ringbuffer type for quickly transferring samples
+	lightweight unguarded ringbuffer type for quickly transferring samples
 	between the audio-thread and other threads.
 	
 	Continuously increments an unmasked 64bit index on write, 
@@ -18,8 +18,8 @@
 		samplePtr[index & indexMask] = src
 	
 	Similarly a sample can be fetched using a continuously incrementing readindex 
-	where: readIndex < writeIndex (writeIndex always points to the next empty slot)
-	and: readIndex >= writeIndex - (indexMask+1)
+	where: readIndex <= writeIndex (writeIndex always points to the last write location)
+	and: readIndex >= writeIndex - indexMask
 	
 	usage indication:
 	

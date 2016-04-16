@@ -271,7 +271,7 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 }
 
 
-
+////////////////////////////////////////////////////////////////////////////////
 /* 
 	playstate will be switched after this call
 	New silent-state is equal to current playstate
@@ -307,6 +307,8 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 	}
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 - (void) globalRMSTimerDidFire
 {
 	[self.drumRingBuffer updateObservers];
@@ -315,6 +317,8 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 
 	//[self.ringBuffer updateObservers];
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 
 - (BOOL)start:(NSError *__autoreleasing *)error {

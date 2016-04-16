@@ -56,11 +56,11 @@
 	When ringBuffer.silent is set, it means the ringBuffer is not currently 
 	being updated for whatever reason, including not being part of 
 	an audio-renderloop. This implies in particular that we need to fill the 
-	metering with zero by ourselves, and not rely on the buffer being updated.
+	metering with zero by ourselves, and not rely on the buffer being cleared.
 	
 	When the buffer is re-entering a renderloop, ringBuffer.reset will be set 
 	to indicate to the audio-thread that the buffer needs clearing first,
-	so the update-thread should ignore results untill reset == NO.
+	so the update-thread should ignore results until reset == NO.
 */
 
 /*

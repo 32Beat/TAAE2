@@ -6,6 +6,8 @@
 //  Copyright © 2016 A Tasty Pixel. All rights reserved.
 //
 
+// IGNORE! sketch only
+
 #import <Foundation/Foundation.h>
 
 @protocol AEObserverStackDelegateProtocol
