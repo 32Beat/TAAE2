@@ -309,13 +309,8 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 
 - (void) globalRMSTimerDidFire
 {
-	self.drumRingBuffer.silent = !self.drums.playing;
 	[self.drumRingBuffer updateObservers];
-
-	self.bassRingBuffer.silent = !self.bass.playing;
 	[self.bassRingBuffer updateObservers];
-
-	self.pianoRingBuffer.silent = !self.piano.playing;
 	[self.pianoRingBuffer updateObservers];
 
 	//[self.ringBuffer updateObservers];

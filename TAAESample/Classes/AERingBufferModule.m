@@ -62,7 +62,6 @@ const AERenderContext * _Nonnull context)
 	{
 		AERingBufferReset(&THIS->mRingBuffer[0]);
 		AERingBufferReset(&THIS->mRingBuffer[1]);
-		NSLog(@"AERingBufferModule->reset %zu", (size_t)THIS);
 		THIS->_reset = NO;
 	}
 	
