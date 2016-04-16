@@ -27,11 +27,15 @@
 #import "AERenderer.h"
 #import "AETypes.h"
 #import "AEManagedValue.h"
+#import "AEDSPUtilities.h"
 
 NSString * const AERendererDidChangeSampleRateNotification = @"AERendererDidChangeSampleRateNotification";
 NSString * const AERendererDidChangeChannelCountNotification = @"AERendererDidChangeChannelCountNotification";
 
 @interface AERenderer ()
+{
+	AERenderContext mContext;
+}
 @property (nonatomic, strong) AEManagedValue * blockValue;
 @property (nonatomic, readwrite) AEBufferStack * stack;
 @end
@@ -45,27 +49,41 @@ NSString * const AERendererDidChangeChannelCountNotification = @"AERendererDidCh
     _sampleRate = 44100.0;
     self.blockValue = [AEManagedValue new];
     self.stack = AEBufferStackNew(0);
+	
+	mContext.sampleRate = _sampleRate;
+	mContext.frameIndex = 0;
+	mContext.frameCount = 0;
+	mContext.frames = 0;
+	mContext.timestamp = nil;
+	mContext.stack = self.stack;
+	mContext.output = nil;
+	
     return self;
 }
 
-void AERendererRun(__unsafe_unretained AERenderer * THIS, AudioBufferList * bufferList, UInt32 frames,
+void AERendererRun(__unsafe_unretained AERenderer * THIS, AudioBufferList * bufferList, UInt32 frameCount,
                    const AudioTimeStamp * timestamp) {
     
     // Reset the buffer stack, and set the frame count
     AEBufferStackReset(THIS->_stack);
-    AEBufferStackSetFrameCount(THIS->_stack, frames);
+    AEBufferStackSetFrameCount(THIS->_stack, frameCount);
     
     // Clear the output buffer
-    for ( int i=0; i<bufferList->mNumberBuffers; i++ ) {
-        memset(bufferList->mBuffers[i].mData, 0, frames * AEAudioDescription.mBytesPerFrame);
-    }
-    
+	AEDSPClearBufferList(bufferList, frameCount);
+	
     // Run the block
-    __unsafe_unretained AERenderLoopBlock block = (__bridge AERenderLoopBlock)AEManagedValueGetValue(THIS->_blockValue);
+    __unsafe_unretained AERenderLoopBlock block =
+	(__bridge AERenderLoopBlock)AEManagedValueGetValue(THIS->_blockValue);
     if ( block ) {
-        AERenderContext context = { bufferList, frames, THIS->_sampleRate, timestamp, THIS->_stack };
-        block(&context);
+        THIS->mContext.sampleRate = THIS->_sampleRate;
+		THIS->mContext.frameCount = frameCount;
+		THIS->mContext.frames = frameCount;
+		THIS->mContext.timestamp = timestamp;
+		THIS->mContext.output = bufferList;
+        block(&THIS->mContext);
     }
+	
+	THIS->mContext.frameIndex += frameCount;
 }
 
 - (void)setBlock:(AERenderLoopBlock)block {

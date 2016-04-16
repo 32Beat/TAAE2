@@ -16,6 +16,11 @@ typedef struct AERange
 }
 AERange;
 
+static inline uint64_t AERangeMin(AERange R)
+{ return R.index; }
+
+static inline uint64_t AERangeMax(AERange R)
+{ return R.index+R.count-(R.count!=0); }
 
 @class AERingBufferModule;
 

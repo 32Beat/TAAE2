@@ -11,6 +11,8 @@
 
 @interface AERingBufferModule ()
 {
+	uint64_t mIndex;
+	
 	size_t mSampleCount;
 	size_t mChannelCount;
 	AERingBuffer mRingBuffer[2];
@@ -56,6 +58,13 @@
 static void AERingBufferModuleProcessFunction(__unsafe_unretained AERingBufferModule * THIS,
 const AERenderContext * _Nonnull context)
 {
+	if (THIS->mIndex != context->frameIndex)
+	{
+		THIS->mIndex = context->frameIndex;
+		AERingBufferReset(&THIS->mRingBuffer[0]);
+		AERingBufferReset(&THIS->mRingBuffer[1]);
+	}
+	
 	// source = top of stack
 	const AudioBufferList *bufferList = THIS->_srcIndex >= 0 ?
 	AEBufferStackGet(context->stack, THIS->_srcIndex) : context->output;
@@ -90,6 +99,8 @@ const AERenderContext * _Nonnull context)
 				AERingBufferWriteSample(&THIS->mRingBuffer[1], srcPtr0[n]);
 			}
 		}
+		
+		THIS->mIndex += frameCount;
 	}
 }
 

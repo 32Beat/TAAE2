@@ -45,11 +45,14 @@
 		
 		// Compute samplerange since last update
 		AERange range = [ringBuffer availableRange];
-		if (mIndex < range.index)
+		
+		// reset index if necessary
+		if (mIndex < AERangeMin(range)||
+			mIndex > AERangeMax(range))
 		{ mIndex = range.index; }
-		range.count -= mIndex-range.index;
-		
-		
+
+		range.count -= mIndex - range.index;
+				
 		// Process samples
 		uint64_t indexMask = [ringBuffer indexMask];
 		const float *srcPtrL = [ringBuffer samplePtrAtIndex:0];

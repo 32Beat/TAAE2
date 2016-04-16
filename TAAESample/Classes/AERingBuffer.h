@@ -80,6 +80,9 @@ void AERingBufferEnd(AERingBuffer *ringBuffer);
 
 ////////////////////////////////////////////////////////////////////////////////
 
+void AERingBufferReset(AERingBuffer *ringBuffer);
+void AERingBufferClear(AERingBuffer *ringBuffer);
+
 // Write a sample into the buffer at the next available slot
 static inline void AERingBufferWriteSample(AERingBuffer *ringBuffer, float sample)
 { ringBuffer->samplePtr[(ringBuffer->index += 1)&ringBuffer->indexMask] = sample; }
