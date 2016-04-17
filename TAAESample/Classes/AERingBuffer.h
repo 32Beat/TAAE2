@@ -64,7 +64,7 @@ extern "C" {
 	Initialize a ringbuffer struct 
 	
 	minSampleCount: the minimum capacity of the buffer, 
-	note that the true capacity will always be a multiple of 2
+	note that the true capacity will always be a power of 2
 	
 	calloc is used to initialize samplePtr
 */

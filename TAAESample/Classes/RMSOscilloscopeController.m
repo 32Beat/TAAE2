@@ -13,19 +13,16 @@
 */
 ////////////////////////////////////////////////////////////////////////////////
 
+
 #import "RMSOscilloscopeController.h"
 
 
-@interface RMSOscilloscopeController ()
-@end
-
 @implementation RMSOscilloscopeController
-
 
 - (void) updateWithRingBufferModule:(AERingBufferModule *)ringBuffer
 {
-	NSMutableData *pathL = nil;
-	NSMutableData *pathR = nil;
+	NSMutableData *dataL = nil;
+	NSMutableData *dataR = nil;
 	
 	// Check ringBuffer state
 	if (ringBuffer.isActive)
@@ -47,40 +44,32 @@
 		int srcStep = samplesPerStep + 0.5;
 		srcStep = MAX(1, srcStep);
 		
-		// start of curve
-		CGPoint P = { 0.0, 0.0 };
-		// count points means (count-1) steps
-		CGFloat dx = 1.0/(kRMSOscilloscopeCount-1);
-
-		// dst points
-		pathL = [NSMutableData dataWithLength:kRMSOscilloscopeCount * sizeof(CGPoint)];
-		pathR = [NSMutableData dataWithLength:kRMSOscilloscopeCount * sizeof(CGPoint)];
+		// create room for dst samples
+		dataL = [NSMutableData floatArrayWithCapacity:kRMSOscilloscopeCount];
+		dataR = [NSMutableData floatArrayWithCapacity:kRMSOscilloscopeCount];
 		
-		CGPoint *L = (CGPoint *)pathL.mutableBytes;
-		CGPoint *R = (CGPoint *)pathR.mutableBytes;
+		// get corresponding pointers
+		float *L = (float *)dataL.mutableBytes;
+		float *R = (float *)dataR.mutableBytes;
 		
-		// start at first point
+		// move index to oldest src sample
 		index -= kRMSOscilloscopeCount*srcStep;
-		// work towards last point
+		// work towards newest src sample
 		for (int n = 0; n!=kRMSOscilloscopeCount; n++)
 		{
-			P.y = srcPtrL[index&indexMask];
-			L[n] = P;
-			P.y = srcPtrR[index&indexMask];
-			R[n] = P;
-
+			L[n] = srcPtrL[index&indexMask];
+			R[n] = srcPtrR[index&indexMask];
 			index += srcStep;
-			P.x += dx;
 		}
 	}
 
 	// reduce updates, particularly if nil when inactive
-	if ((self.view.pathL != pathL)||
-		(self.view.pathR != pathR))
+	if ((self.view.dataL != dataL)||
+		(self.view.dataR != dataR))
 		dispatch_async(dispatch_get_main_queue(),
 		^{
-			self.view.pathL = pathL;
-			self.view.pathR = pathR;
+			self.view.dataL = dataL;
+			self.view.dataR = dataR;
 			[self.view setNeedsDisplay];
 		});
 }
