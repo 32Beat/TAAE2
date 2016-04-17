@@ -274,6 +274,10 @@
                                             </view>
                                         </subviews>
                                     </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1jo-OM-lLX" customClass="RMSOscilloscopeView">
+                                        <rect key="frame" x="15" y="8" width="436" height="35"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -344,6 +348,7 @@
                         <outlet property="hitButton" destination="y6N-LY-tsf" id="3nu-fo-1ub"/>
                         <outlet property="meteringController" destination="i5l-nn-K1M" id="BaS-2M-s2L"/>
                         <outlet property="micButton" destination="tyg-k0-s00" id="u0b-T2-Pqa"/>
+                        <outlet property="oscilloscopeController" destination="CRG-of-0ro" id="Whd-gf-JEH"/>
                         <outlet property="pad" destination="bu3-6Q-MsA" id="sBz-gO-gCp"/>
                         <outlet property="pianoButton" destination="COa-XF-8pQ" id="SKZ-nY-Bft"/>
                         <outlet property="pianoMeteringController" destination="3ue-Fk-dt0" id="Px3-o1-DMR"/>
@@ -374,10 +379,10 @@
                         <action selector="loopTapped:" destination="BYZ-38-t0r" id="Idc-Zo-CGR"/>
                     </connections>
                 </tapGestureRecognizer>
-                <customObject id="i5l-nn-K1M" customClass="RMSMeteringController">
+                <customObject id="i5l-nn-K1M" customClass="RMSMeteringController"/>
+                <customObject id="CRG-of-0ro" customClass="RMSOscilloscopeController">
                     <connections>
-                        <outlet property="mLevelsViewL" destination="SUa-Kf-WIU" id="W7k-fp-pJo"/>
-                        <outlet property="mLevelsViewR" destination="jWi-Rz-dqM" id="7rH-lJ-bq5"/>
+                        <outlet property="view" destination="1jo-OM-lLX" id="Cn6-DU-kCs"/>
                     </connections>
                 </customObject>
                 <customObject id="oA8-jW-OFg" userLabel="Drum Metering Controller" customClass="RMSMeteringController">

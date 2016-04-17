@@ -274,7 +274,7 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 ////////////////////////////////////////////////////////////////////////////////
 /* 
 	playstate will be switched after this call
-	New silent-state is equal to current playstate
+	New active-state is therefore the inverse of current playstate
 
 	technically we need to update entire state of players here,
 	but I'm too lazy to implement that. 
@@ -287,23 +287,17 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 {
 	if (player == self.drums)
 	{
-		self.drumRingBuffer.silent = self.drums.playing;
-		if (self.drumRingBuffer.silent == NO)
-		{ self.drumRingBuffer.reset = YES; }
+		self.drumRingBuffer.active = !self.drums.playing;
 	}
 	else
 	if (player == self.bass)
 	{
-		self.bassRingBuffer.silent = self.bass.playing;
-		if (self.bassRingBuffer.silent == NO)
-		{ self.bassRingBuffer.reset = YES; }
+		self.bassRingBuffer.active = !self.bass.playing;
 	}
 	else
 	if (player == self.piano)
 	{
-		self.pianoRingBuffer.silent = self.piano.playing;
-		if (self.pianoRingBuffer.silent == NO)
-		{ self.pianoRingBuffer.reset = YES; }
+		self.pianoRingBuffer.active = !self.piano.playing;
 	}
 }
 
@@ -315,7 +309,7 @@ static const double kMicBandpassCenterFrequency = 2000.0;
 	[self.bassRingBuffer updateObservers];
 	[self.pianoRingBuffer updateObservers];
 
-	//[self.ringBuffer updateObservers];
+	[self.ringBuffer updateObservers];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

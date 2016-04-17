@@ -53,14 +53,13 @@
 /*
 	1. Check ringBuffer state
 	-------------------------
-	When ringBuffer.silent is set, it means the ringBuffer is not currently 
-	being updated for whatever reason, including not being part of 
-	an audio-renderloop. This implies in particular that we need to fill the 
-	metering with zero by ourselves, and not rely on the buffer being cleared.
+	When ringBuffer.active is set, it means the ringBuffer is currently
+	part of an active renderloop and in a valid state. If not, we need to fill
+	the levelsengine ourselves, since we can not rely on the buffer being clear.
 	
 	When the buffer is re-entering a renderloop, ringBuffer.reset will be set 
 	to indicate to the audio-thread that the buffer needs clearing first,
-	so the update-thread should ignore results until reset == NO.
+	so the update-thread will ignore results until reset == NO.
 */
 
 /*
@@ -113,7 +112,7 @@
 - (void) updateWithRingBufferModule:(AERingBufferModule *)ringBuffer
 {
 	// 1. Check ringBuffer state
-	if ((ringBuffer.silent == NO)&&(ringBuffer.reset == NO))
+	if (ringBuffer.isActive)
 	{
 		// 2. Reinitialize engines if necessary
 		Float64 sampleRate = ringBuffer.renderer.sampleRate;

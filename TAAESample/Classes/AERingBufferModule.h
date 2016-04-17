@@ -71,18 +71,26 @@ static inline uint64_t AERangeMax(AERange R)
 
 @interface AERingBufferModule : AEModule
 
-@property (nonatomic, assign) BOOL reset;
-@property (nonatomic, assign) BOOL silent;
+// srcIndex indicates buffer to process:
+// -1 = output buffer, otherwise index into bufferstack where 0 = top-of-stack
 @property (nonatomic, assign) int srcIndex;
 
+// indicator whether currently part of a renderloop and in a valid state
+@property (nonatomic, assign, getter=isActive) BOOL active;
+
+// delegate
 @property (nonatomic, weak) id<AERingBufferModuleDelegateProtocol> delegate;
 
+// observer logic
 - (void) addObserver:(id<AERingBufferModuleObserverProtocol>)observer;
 - (void) removeObserver:(id<AERingBufferModuleObserverProtocol>)observer;
 - (void) updateObservers;
 
 
+// returns the available range (excluding margin)
 - (AERange) availableRange;
+
+// return indexing parameters:
 - (uint64_t) indexMask;
 - (const float *) samplePtrAtIndex:(unsigned)channelIndex;
 

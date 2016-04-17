@@ -8,3 +8,4 @@
 
 #import "AEAudioController.h"
 #import "RMSMeteringController.h"
+#import "RMSOscilloscopeController.h"

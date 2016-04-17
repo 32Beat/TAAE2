@@ -12,6 +12,7 @@
 @interface AERingBufferModule ()
 {
 	BOOL mReset;
+	BOOL mActive;
 	
 	size_t mSampleCount;
 	size_t mChannelCount;
@@ -38,6 +39,8 @@
 		mRingBuffer[0] = AERingBufferBegin(mSampleCount);
 		mRingBuffer[1] = AERingBufferBegin(mSampleCount);
 		self.processFunction = AERingBufferModuleProcessFunction;
+		
+		self.active = YES;
 	}
 	
 	return self;
@@ -58,11 +61,11 @@
 static void AERingBufferModuleProcessFunction(__unsafe_unretained AERingBufferModule * THIS,
 const AERenderContext * _Nonnull context)
 {
-	if (THIS->_reset == YES)
+	if (THIS->mReset == YES)
 	{
 		AERingBufferReset(&THIS->mRingBuffer[0]);
 		AERingBufferReset(&THIS->mRingBuffer[1]);
-		THIS->_reset = NO;
+		THIS->mReset = NO;
 	}
 	
 	// source = top of stack
@@ -104,6 +107,24 @@ const AERenderContext * _Nonnull context)
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark Read Logic
+////////////////////////////////////////////////////////////////////////////////
+/*
+	isActive
+	--------
+	returns whether the ringBuffer is currently processing samples
+*/
+- (BOOL) isActive
+{ return mActive == YES && mReset == NO; }
+
+- (void) setActive:(BOOL)active
+{
+	// On main: either remain YES or become YES
+	// see also AERingBufferModuleProcessFunction
+	if (mReset == NO)
+	{ mReset = active; }
+	mActive = active;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 - (AERange) availableRange

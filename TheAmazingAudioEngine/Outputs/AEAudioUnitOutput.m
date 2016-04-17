@@ -37,7 +37,7 @@
 @import AVFoundation;
 
 #ifdef DEBUG
-static const AESeconds kRenderTimeReportInterval = 0.0;   // Seconds between render time reports; 0 = no reporting
+static const AESeconds kRenderTimeReportInterval = 2.0;   // Seconds between render time reports; 0 = no reporting
 static const double kRenderBudgetWarningThreshold = 0.75; // Ratio of total buffer duration to hit before budget overrun warnings
 static const AESeconds kRenderBudgetWarningInitialDelay = 4.0; // Seconds to wait before warning about budget overrun
 #endif

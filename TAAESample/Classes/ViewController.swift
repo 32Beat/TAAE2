@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     @IBOutlet var bassMeteringController: RMSMeteringController!
     @IBOutlet var pianoMeteringController: RMSMeteringController!
     @IBOutlet var meteringController: RMSMeteringController!
+    @IBOutlet var oscilloscopeController: RMSOscilloscopeController!
 
     @IBOutlet var topBackground: UIView!
     @IBOutlet var bottomBackground: UIView!
@@ -59,6 +60,7 @@ class ViewController: UIViewController {
 		audio!.bassRingBuffer.addObserver(self.bassMeteringController);
 		audio!.pianoRingBuffer.addObserver(self.pianoMeteringController);
 		audio!.ringBuffer.addObserver(self.meteringController);
+		audio!.ringBuffer.addObserver(self.oscilloscopeController);
 		
         do
 		{ try self.audio!.start(); }

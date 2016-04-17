@@ -26,6 +26,8 @@
 		7F7219B21CBD55FD00458CF9 /* AERingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7219B11CBD55FD00458CF9 /* AERingBuffer.m */; };
 		7F9DEB991CBAF4CC000796AE /* AERingBufferModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9DEB981CBAF4CC000796AE /* AERingBufferModule.m */; };
 		7F9DEB9C1CBB0201000796AE /* RMSTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9DEB9B1CBB0201000796AE /* RMSTimer.m */; };
+		7FACB7FF1CC31AE500ED2E9B /* RMSOscilloscopeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FACB7FE1CC31AE500ED2E9B /* RMSOscilloscopeView.m */; };
+		7FACB8021CC31B2D00ED2E9B /* RMSOscilloscopeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FACB8011CC31B2D00ED2E9B /* RMSOscilloscopeController.m */; };
 		7FE0205A1CBBDDED00FC1938 /* RMSIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE020591CBBDDED00FC1938 /* RMSIndexView.m */; };
 		7FE0205D1CBBE24A00FC1938 /* RMSLevelsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE0205C1CBBE24A00FC1938 /* RMSLevelsView.m */; };
 		7FE020601CBBE32300FC1938 /* rmslevels_t.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE0205F1CBBE32300FC1938 /* rmslevels_t.m */; };
@@ -60,6 +62,10 @@
 		7F9DEB981CBAF4CC000796AE /* AERingBufferModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AERingBufferModule.m; sourceTree = "<group>"; };
 		7F9DEB9A1CBB0201000796AE /* RMSTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSTimer.h; sourceTree = "<group>"; };
 		7F9DEB9B1CBB0201000796AE /* RMSTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSTimer.m; sourceTree = "<group>"; };
+		7FACB7FD1CC31AE500ED2E9B /* RMSOscilloscopeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSOscilloscopeView.h; sourceTree = "<group>"; };
+		7FACB7FE1CC31AE500ED2E9B /* RMSOscilloscopeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSOscilloscopeView.m; sourceTree = "<group>"; };
+		7FACB8001CC31B2D00ED2E9B /* RMSOscilloscopeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSOscilloscopeController.h; sourceTree = "<group>"; };
+		7FACB8011CC31B2D00ED2E9B /* RMSOscilloscopeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSOscilloscopeController.m; sourceTree = "<group>"; };
 		7FE020581CBBDDED00FC1938 /* RMSIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSIndexView.h; sourceTree = "<group>"; };
 		7FE020591CBBDDED00FC1938 /* RMSIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSIndexView.m; sourceTree = "<group>"; };
 		7FE0205B1CBBE24A00FC1938 /* RMSLevelsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSLevelsView.h; sourceTree = "<group>"; };
@@ -118,6 +124,10 @@
 				7FE0205C1CBBE24A00FC1938 /* RMSLevelsView.m */,
 				7FE020611CBC20C900FC1938 /* RMSMeteringController.h */,
 				7FE020621CBC20C900FC1938 /* RMSMeteringController.m */,
+				7FACB8001CC31B2D00ED2E9B /* RMSOscilloscopeController.h */,
+				7FACB8011CC31B2D00ED2E9B /* RMSOscilloscopeController.m */,
+				7FACB7FD1CC31AE500ED2E9B /* RMSOscilloscopeView.h */,
+				7FACB7FE1CC31AE500ED2E9B /* RMSOscilloscopeView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -251,11 +261,13 @@
 			files = (
 				4C94E2C31CAF7129006EB497 /* ViewController.swift in Sources */,
 				7F9DEB991CBAF4CC000796AE /* AERingBufferModule.m in Sources */,
+				7FACB7FF1CC31AE500ED2E9B /* RMSOscilloscopeView.m in Sources */,
 				7FE020601CBBE32300FC1938 /* rmslevels_t.m in Sources */,
 				4C94E2BF1CAF7129006EB497 /* AEAudioController.m in Sources */,
 				4C94E2C11CAF7129006EB497 /* TriggerGestureRecognizer.swift in Sources */,
 				7F42B7B51CBDE29F00CB9A39 /* AEObserverStack.m in Sources */,
 				7F9DEB9C1CBB0201000796AE /* RMSTimer.m in Sources */,
+				7FACB8021CC31B2D00ED2E9B /* RMSOscilloscopeController.m in Sources */,
 				7FE0205D1CBBE24A00FC1938 /* RMSLevelsView.m in Sources */,
 				7FE020631CBC20C900FC1938 /* RMSMeteringController.m in Sources */,
 				4C94E2C21CAF7129006EB497 /* PlayerButton.swift in Sources */,
