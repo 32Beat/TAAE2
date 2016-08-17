@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13E5A6831D64A6B400B7B982 /* RMSDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 13E5A67F1D64A6B400B7B982 /* RMSDevice.h */; };
+		13E5A6841D64A6B400B7B982 /* RMSDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 13E5A67F1D64A6B400B7B982 /* RMSDevice.h */; };
+		13E5A6851D64A6B400B7B982 /* RMSDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 13E5A67F1D64A6B400B7B982 /* RMSDevice.h */; };
+		13E5A6861D64A6B400B7B982 /* RMSDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E5A6801D64A6B400B7B982 /* RMSDevice.m */; };
+		13E5A6871D64A6B400B7B982 /* RMSDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E5A6801D64A6B400B7B982 /* RMSDevice.m */; };
+		13E5A6881D64A6B400B7B982 /* RMSDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E5A6801D64A6B400B7B982 /* RMSDevice.m */; };
+		13E5A6891D64A6B400B7B982 /* RMSDeviceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 13E5A6811D64A6B400B7B982 /* RMSDeviceManager.h */; };
+		13E5A68A1D64A6B400B7B982 /* RMSDeviceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 13E5A6811D64A6B400B7B982 /* RMSDeviceManager.h */; };
+		13E5A68B1D64A6B400B7B982 /* RMSDeviceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 13E5A6811D64A6B400B7B982 /* RMSDeviceManager.h */; };
+		13E5A68C1D64A6B400B7B982 /* RMSDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E5A6821D64A6B400B7B982 /* RMSDeviceManager.m */; };
+		13E5A68D1D64A6B400B7B982 /* RMSDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E5A6821D64A6B400B7B982 /* RMSDeviceManager.m */; };
+		13E5A68E1D64A6B400B7B982 /* RMSDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E5A6821D64A6B400B7B982 /* RMSDeviceManager.m */; };
 		4C3183101CDDEFDE0085634F /* AEMixerModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31830E1CDDEFDE0085634F /* AEMixerModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C3183111CDDEFDE0085634F /* AEMixerModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31830E1CDDEFDE0085634F /* AEMixerModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C3183121CDDEFDE0085634F /* AEMixerModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C31830E1CDDEFDE0085634F /* AEMixerModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -330,6 +342,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		13E5A67F1D64A6B400B7B982 /* RMSDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSDevice.h; sourceTree = "<group>"; };
+		13E5A6801D64A6B400B7B982 /* RMSDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSDevice.m; sourceTree = "<group>"; };
+		13E5A6811D64A6B400B7B982 /* RMSDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSDeviceManager.h; sourceTree = "<group>"; };
+		13E5A6821D64A6B400B7B982 /* RMSDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSDeviceManager.m; sourceTree = "<group>"; };
 		4C31830E1CDDEFDE0085634F /* AEMixerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEMixerModule.h; sourceTree = "<group>"; };
 		4C31830F1CDDEFDE0085634F /* AEMixerModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEMixerModule.m; sourceTree = "<group>"; };
 		4C3183161CDEC6560085634F /* AEAudioFileOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEAudioFileOutput.h; sourceTree = "<group>"; };
@@ -468,6 +484,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13E5A67E1D64A6B400B7B982 /* RMSDeviceManager */ = {
+			isa = PBXGroup;
+			children = (
+				13E5A67F1D64A6B400B7B982 /* RMSDevice.h */,
+				13E5A6801D64A6B400B7B982 /* RMSDevice.m */,
+				13E5A6811D64A6B400B7B982 /* RMSDeviceManager.h */,
+				13E5A6821D64A6B400B7B982 /* RMSDeviceManager.m */,
+			);
+			path = RMSDeviceManager;
+			sourceTree = "<group>";
+		};
 		4C94E2A21CAE6AE0006EB497 /* Taps */ = {
 			isa = PBXGroup;
 			children = (
@@ -585,6 +612,7 @@
 		4CDCAD2E1CA3C31C008AAEF1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				13E5A67E1D64A6B400B7B982 /* RMSDeviceManager */,
 				4CDCAD351CA3C31C008AAEF1 /* AEUtilities.h */,
 				4CDCAD361CA3C31C008AAEF1 /* AEUtilities.m */,
 				4CDCAD2F1CA3C31C008AAEF1 /* AEAudioBufferListUtilities.h */,
@@ -720,7 +748,9 @@
 				4C9F0F6B1CB265F90032903E /* AEMessageQueue.h in Headers */,
 				4C9F0F6C1CB265F90032903E /* AEAudioBufferListUtilities.h in Headers */,
 				4C9F0F6D1CB265F90032903E /* AEAudioUnitOutput.h in Headers */,
+				13E5A6841D64A6B400B7B982 /* RMSDevice.h in Headers */,
 				4C9F0F6E1CB265F90032903E /* AEAudioFileRecorderModule.h in Headers */,
+				13E5A68A1D64A6B400B7B982 /* RMSDeviceManager.h in Headers */,
 				4C9F0F6F1CB265F90032903E /* AEVarispeedModule.h in Headers */,
 				4C9F0F701CB265F90032903E /* AELowShelfModule.h in Headers */,
 				4CE5F4CF1CD3169C00322F03 /* AEAudioThreadEndpoint.h in Headers */,
@@ -770,7 +800,9 @@
 				4C9F0FB31CB269C30032903E /* AEMessageQueue.h in Headers */,
 				4C9F0FB41CB269C30032903E /* AEAudioBufferListUtilities.h in Headers */,
 				4C9F0FB51CB269C30032903E /* AEAudioUnitOutput.h in Headers */,
+				13E5A6851D64A6B400B7B982 /* RMSDevice.h in Headers */,
 				4C9F0FB61CB269C30032903E /* AEAudioFileRecorderModule.h in Headers */,
+				13E5A68B1D64A6B400B7B982 /* RMSDeviceManager.h in Headers */,
 				4C9F0FB71CB269C30032903E /* AEVarispeedModule.h in Headers */,
 				4C9F0FB81CB269C30032903E /* AELowShelfModule.h in Headers */,
 				4CE5F4D01CD3169C00322F03 /* AEAudioThreadEndpoint.h in Headers */,
@@ -808,6 +840,7 @@
 				4CDCAD8A1CA5484D008AAEF1 /* AEParametricEqModule.h in Headers */,
 				4CB2F2ED1D49ABC6008F745F /* AEManagedValue.h in Headers */,
 				4CB2F2E11D49ABC6008F745F /* AEArray.h in Headers */,
+				13E5A6891D64A6B400B7B982 /* RMSDeviceManager.h in Headers */,
 				4CDCAD801CA5484D008AAEF1 /* AEHighPassModule.h in Headers */,
 				4C77569B1CD2E5C6004415A2 /* TPCircularBuffer+AudioBufferList.h in Headers */,
 				4CDCACEB1CA25B6F008AAEF1 /* TheAmazingAudioEngine.h in Headers */,
@@ -822,6 +855,7 @@
 				4CDCAD411CA3C31C008AAEF1 /* AEAudioBufferListUtilities.h in Headers */,
 				4C77566D1CCB42AA004415A2 /* AESubrendererModule.h in Headers */,
 				4CDCADB51CABDE68008AAEF1 /* AEAudioUnitOutput.h in Headers */,
+				13E5A6831D64A6B400B7B982 /* RMSDevice.h in Headers */,
 				4C94E2A51CAE6AFF006EB497 /* AEAudioFileRecorderModule.h in Headers */,
 				4CDCAD901CA5484D008AAEF1 /* AEVarispeedModule.h in Headers */,
 				4CDCAD861CA5484D008AAEF1 /* AELowShelfModule.h in Headers */,
@@ -981,12 +1015,14 @@
 				4C9F0F3C1CB265F90032903E /* AEDistortionModule.m in Sources */,
 				4CB2F2EB1D49ABC6008F745F /* AEBufferStack.m in Sources */,
 				4C9F0F3D1CB265F90032903E /* AEAudioUnitOutput.m in Sources */,
+				13E5A68D1D64A6B400B7B982 /* RMSDeviceManager.m in Sources */,
 				4C9F0F3E1CB265F90032903E /* AELowPassModule.m in Sources */,
 				4C9F0F3F1CB265F90032903E /* AEHighPassModule.m in Sources */,
 				4C9F0F401CB265F90032903E /* AEVarispeedModule.m in Sources */,
 				4C9F0F411CB265F90032903E /* AEBandpassModule.m in Sources */,
 				4C9F0F421CB265F90032903E /* AEAudioFileRecorderModule.m in Sources */,
 				4C43E5AD1CF131290000DB62 /* AEAudioFileReader.m in Sources */,
+				13E5A6871D64A6B400B7B982 /* RMSDevice.m in Sources */,
 				4C31831C1CDEC6560085634F /* AEAudioFileOutput.m in Sources */,
 				4C636E0E1D0D2E54005A380B /* AERealtimeWatchdog.m in Sources */,
 				4C9F0F431CB265F90032903E /* AEAudioFilePlayerModule.m in Sources */,
@@ -1033,12 +1069,14 @@
 				4C9F0F861CB269C30032903E /* AEDistortionModule.m in Sources */,
 				4CB2F2EC1D49ABC6008F745F /* AEBufferStack.m in Sources */,
 				4C9F0F871CB269C30032903E /* AEAudioUnitOutput.m in Sources */,
+				13E5A68E1D64A6B400B7B982 /* RMSDeviceManager.m in Sources */,
 				4C9F0F881CB269C30032903E /* AELowPassModule.m in Sources */,
 				4C9F0F891CB269C30032903E /* AEHighPassModule.m in Sources */,
 				4C9F0F8A1CB269C30032903E /* AEVarispeedModule.m in Sources */,
 				4C9F0F8B1CB269C30032903E /* AEBandpassModule.m in Sources */,
 				4C9F0F8C1CB269C30032903E /* AEAudioFileRecorderModule.m in Sources */,
 				4C43E5AE1CF131290000DB62 /* AEAudioFileReader.m in Sources */,
+				13E5A6881D64A6B400B7B982 /* RMSDevice.m in Sources */,
 				4C31831D1CDEC6560085634F /* AEAudioFileOutput.m in Sources */,
 				4C636E0F1D0D2E54005A380B /* AERealtimeWatchdog.m in Sources */,
 				4C9F0F8D1CB269C30032903E /* AEAudioFilePlayerModule.m in Sources */,
@@ -1068,6 +1106,7 @@
 				4CDCAD8D1CA5484D008AAEF1 /* AEPeakLimiterModule.m in Sources */,
 				4CDCAD7F1CA5484D008AAEF1 /* AEDynamicsProcessorModule.m in Sources */,
 				4CDCAD7B1CA5484D008AAEF1 /* AEDelayModule.m in Sources */,
+				13E5A6861D64A6B400B7B982 /* RMSDevice.m in Sources */,
 				4CDCAD421CA3C31C008AAEF1 /* AEAudioBufferListUtilities.m in Sources */,
 				4CE5F4C71CD30A1900322F03 /* AEMainThreadEndpoint.m in Sources */,
 				4CDCAD401CA3C31C008AAEF1 /* AERenderer.m in Sources */,
@@ -1100,6 +1139,7 @@
 				4C31831B1CDEC6560085634F /* AEAudioFileOutput.m in Sources */,
 				4C7756981CD2E5C6004415A2 /* TPCircularBuffer+AudioBufferList.c in Sources */,
 				4CDCAD201CA3A688008AAEF1 /* TPCircularBuffer.c in Sources */,
+				13E5A68C1D64A6B400B7B982 /* RMSDeviceManager.m in Sources */,
 				4CDCAD9D1CA90F98008AAEF1 /* AEAudioUnitModule.m in Sources */,
 				4CBCF2A11CFBC3D200CA2EA0 /* AESplitterModule.m in Sources */,
 				4CDCAD8F1CA5484D008AAEF1 /* AEReverbModule.m in Sources */,

@@ -93,18 +93,30 @@ NSString * const AEIOAudioUnitDidSetupNotification = @"AEIOAudioUnitDidSetupNoti
     NSAssert(self.outputEnabled || self.inputEnabled, @"Must have output or input enabled");
     
 #if !TARGET_OS_IPHONE
-    NSAssert(!(self.outputEnabled && self.inputEnabled), @"Can only have both input and output enabled on iOS");
+    NSAssert((self.outputEnabled ^ self.inputEnabled), @"Must have either output or input enabled, but not both");
 #endif
-    
-    // Get an instance of the output audio unit
-    AudioComponentDescription acd = {};
+
+// define for platform dependent subtype
 #if TARGET_OS_IPHONE
-    acd = AEAudioComponentDescriptionMake(kAudioUnitManufacturer_Apple, kAudioUnitType_Output, kAudioUnitSubType_RemoteIO);
+    #define kAudioUnitSubType_PlatformIO kAudioUnitSubType_RemoteIO
 #else
-    acd = AEAudioComponentDescriptionMake(kAudioUnitManufacturer_Apple, kAudioUnitType_Output, kAudioUnitSubType_HALOutput);
+	#define kAudioUnitSubType_PlatformIO kAudioUnitSubType_HALOutput
 #endif
-    
+
+	// create component description for output unit
+    AudioComponentDescription acd = AEAudioComponentDescriptionMake
+	(kAudioUnitManufacturer_Apple, kAudioUnitType_Output, kAudioUnitSubType_PlatformIO);
+
+	
+    // find the corresponding component
     AudioComponent inputComponent = AudioComponentFindNext(NULL, &acd);
+    if (inputComponent == nil) {
+        if ( error ) *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:0
+                                              userInfo:@{ NSLocalizedDescriptionKey: @"IO unit not found" }];
+        return NO;
+    }
+
+	// create an instance of the output unit
     OSStatus result = AudioComponentInstanceNew(inputComponent, &_audioUnit);
     if ( !AECheckOSStatus(result, "AudioComponentInstanceNew") ) {
         if ( error ) *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:result

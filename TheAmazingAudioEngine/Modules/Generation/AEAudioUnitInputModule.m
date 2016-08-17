@@ -32,6 +32,8 @@
 #import "AEAudioBufferListUtilities.h"
 #import <AVFoundation/AVFoundation.h>
 
+#import "RMSDeviceManager.h"
+
 @interface AEAudioUnitInputModule ()
 @property (nonatomic, weak) AEIOAudioUnit * ioUnit;
 @property (nonatomic, readwrite) int numberOfInputChannels;
@@ -60,6 +62,44 @@
         self.ioUnit.inputEnabled = YES;
         self.ioUnit.sampleRate = self.renderer.sampleRate;
         self.ownsIOUnit = YES;
+		
+#if !TARGET_OS_IPHONE
+
+		// on desktop we need to disable the output stream
+		self.ioUnit.outputEnabled = NO;
+
+		// and attach a device to the input stream
+		static const AudioObjectPropertyAddress address = {
+				kAudioHardwarePropertyDefaultInputDevice,
+				kAudioObjectPropertyScopeGlobal,
+				kAudioObjectPropertyElementMaster };
+		
+		// fetch the default input device
+		AudioDeviceID deviceID = 0;
+		UInt32 size = sizeof(AudioDeviceID);
+		OSStatus error = AudioObjectGetPropertyData
+				(kAudioObjectSystemObject, &address, 0, nil, &size, &deviceID);
+		
+		// attach to audio unit
+		// note that this action changes the streamformat samplerates
+		error = AudioUnitSetProperty(self.ioUnit.audioUnit,
+				kAudioOutputUnitProperty_CurrentDevice,
+				kAudioUnitScope_Global, 0, &deviceID, size);
+
+/*
+		NSArray *inputDevices = [RMSDeviceManager availableInputDevices];
+		if (inputDevices.count != 0)
+		{
+			RMSDevice *device = [inputDevices objectAtIndex:0];
+
+			UInt32 size = sizeof(AudioDeviceID);
+			error = AudioUnitSetProperty(self.ioUnit.audioUnit,
+					kAudioOutputUnitProperty_CurrentDevice,
+					kAudioUnitScope_Global, 0, &device.deviceID, size);
+		}
+*/
+		
+#endif
     }
     
     self.ioUnit.maximumInputChannels = AEBufferStackGetMaximumChannelsPerBuffer(self.renderer.stack);

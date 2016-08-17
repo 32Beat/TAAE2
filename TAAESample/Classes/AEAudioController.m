@@ -112,7 +112,14 @@ static const double kMicBandpassCenterFrequency = 2000.0;
     // Setup mic input (we'll draw from the output's IO audio unit, on iOS; on the Mac, this has its own IO unit).
     AEAudioUnitInputModule * input = self.output.inputModule;
     self.input = input;
-    
+
+
+	// for testing purposes
+	// note: not sure whether this is a proper point to set this
+	self.inputEnabled = YES;
+	// end of test
+	
+	
     // Setup effects
     AEBandpassModule * bandpass = [[AEBandpassModule alloc] initWithRenderer:renderer];
     bandpass.wetDry = 0.0;
